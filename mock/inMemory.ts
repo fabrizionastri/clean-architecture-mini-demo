@@ -1,6 +1,6 @@
 import { Order } from '../src/core/entities/order'
 
-export const inMemoryDb: {
+export const inMemory: {
   orders: Order[]
 } = {
   orders: [

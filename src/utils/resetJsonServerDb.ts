@@ -2,14 +2,14 @@ import fs from 'fs'
 import path from 'path'
 
 // import { fileURLToPath } from 'url' // use this to get path to current file path
-import { inMemoryDb } from '../../mock/inMemoryDb'
+import { inMemory } from '../../mock/inMemory'
 
-export const resetJsonServerDb = () => {
-  const json = JSON.stringify(inMemoryDb, null, 2)
+export const resetJsonServer = () => {
+  const json = JSON.stringify(inMemory, null, 2)
   // const dirname = path.dirname(fileURLToPath(import.meta.url))
   const dirname = './mock' // use for use in this repo
   // const dirname = '../../mock/'
-  const destination = path.join(dirname, 'jsonServerDb.json')
+  const destination = path.join(dirname, 'jsonServer.json')
 
   fs.writeFile(destination, json, (err) => {
     if (err) {
@@ -20,4 +20,4 @@ export const resetJsonServerDb = () => {
   })
 }
 
-resetJsonServerDb()
+resetJsonServer()

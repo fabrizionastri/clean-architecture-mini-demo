@@ -1,53 +1,56 @@
-import { orderInMemoryDbAdapter1, orderInMemoryDbAdapter2 } from 'adapters/dbAdapters/inMemory/orderInMemoryDbAdapter'
 import {
-  orderJsonServerDbAdapter1,
-  orderJsonServerDbAdapter2,
-} from 'adapters/dbAdapters/jsonServer/orderJsonServerDbAdapter'
-import { inMemoryDb } from 'mock/inMemoryDb'
+  orderAdapter1 as orderInMemoryAdapter1,
+  orderAdapter2 as orderInMemoryAdapter2,
+} from 'adapters/inMemory/orderInMemoryAdapter'
+import {
+  orderAdapter1 as orderJsonServerAdapter1,
+  orderAdapter2 as orderJsonServerAdapter2,
+} from 'adapters/jsonServer/orderJsonServerAdapter'
+import { orderGateway2, orderGateway3 } from 'gateways/orderGateway'
+import { inMemory } from 'mock/inMemory'
 
-import { orderGateway2, orderGateway3 } from '../gateways/orderGateway'
-import { fetchOrderById } from './fetchById'
+import { fetchOrderById1, fetchOrderById2 } from './fetchById'
 
-const orders = inMemoryDb.orders
+const orders = inMemory.orders
 
-const orderDbGateways1 = [
-  { scenario: 'gateway 1 + json', orderDbAdapter: orderInMemoryDbAdapter1 },
-  { scenario: 'gateway 1 + in memory', orderDbAdapter: orderJsonServerDbAdapter1 },
+const scenarios1 = [
+  { scenario: 'gateway 1 + in memory', orderAdapter1: orderInMemoryAdapter1 },
+  { scenario: 'gateway 1 + json', orderAdapter1: orderJsonServerAdapter1 },
 ]
 
-describe('Usecase: fetchOrderById  → for each order gateway & adapter', () => {
-  orderDbGateways1.forEach(({ scenario, orderDbAdapter }) => {
+describe('Usecase: fetchOrderById  → for each order gateway & adapter 1', () => {
+  scenarios1.forEach(({ scenario, orderAdapter1 }) => {
     describe(scenario, () => {
       it('should return the order with the specified ID from the db', async () => {
-        const result = await fetchOrderById(orderDbAdapter)('order1')
+        const result = await fetchOrderById1(orderAdapter1)('order1')
         expect(result).toEqual(orders[1])
       })
 
       it('should return undefined for inexistant id', async () => {
-        const result = await fetchOrderById(orderDbAdapter)('inexistant')
+        const result = await fetchOrderById1(orderAdapter1)('inexistant')
         expect(result).toEqual(undefined)
       })
     })
   })
 })
 
-const orderDbGateways2 = [
-  { scenario: 'gateway 2 + json', orderDbGateway: orderGateway2, orderDbAdapter: orderInMemoryDbAdapter2() },
-  { scenario: 'gateway 2 + in memory', orderDbGateway: orderGateway2, orderDbAdapter: orderJsonServerDbAdapter2() },
-  { scenario: 'gateway 3 + json', orderDbGateway: orderGateway3, orderDbAdapter: orderInMemoryDbAdapter2() },
-  { scenario: 'gateway 3 + in memory', orderDbGateway: orderGateway3, orderDbAdapter: orderJsonServerDbAdapter2() },
+const scenarios2 = [
+  { scenario: 'gateway 2 + in memory adapter', orderGateway2: orderGateway2, orderAdapter2: orderInMemoryAdapter2() },
+  { scenario: 'gateway 2 + json adapter', orderGateway2: orderGateway2, orderAdapter2: orderJsonServerAdapter2() },
+  { scenario: 'gateway 3 + in memory adapter', orderGateway2: orderGateway3, orderAdapter2: orderInMemoryAdapter2() },
+  { scenario: 'gateway 3 + json adapter', orderGateway2: orderGateway3, orderAdapter2: orderJsonServerAdapter2() },
 ]
 
-describe('Usecase: fetchOrderById  → for each order gateway & adapter', () => {
-  orderDbGateways2.forEach(({ scenario, orderDbGateway, orderDbAdapter }) => {
+describe('Usecase: fetchOrderById  → for each order gateway & adapter 2 & 3', () => {
+  scenarios2.forEach(({ scenario, orderGateway2, orderAdapter2 }) => {
     describe(scenario, () => {
       it('should return the order with the specified ID from the db', async () => {
-        const result = await fetchOrderById(orderDbGateway(orderDbAdapter))('order1')
+        const result = await fetchOrderById2(orderGateway2(orderAdapter2))('order1')
         expect(result).toEqual(orders[1])
       })
 
       it('should return undefined for inexistant id', async () => {
-        const result = await fetchOrderById(orderDbAdapter)('inexistant')
+        const result = await fetchOrderById2(orderGateway2(orderAdapter2))('inexistant')
         expect(result).toEqual(undefined)
       })
     })

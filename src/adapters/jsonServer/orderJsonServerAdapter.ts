@@ -1,8 +1,7 @@
-// src/adapters/dbAdapters/jsonServer/order.jsonServer.dbAdapter.ts
+// src/adapters/Adapters/jsonServer/order.jsonServer.Adapter.ts
 import axios, { AxiosResponse, Method } from 'axios'
 import { Order } from 'entities/order'
-
-import { OrderGateway1 } from '~/src/core/gateways/orderGateway'
+import { OrderGateway1 } from 'gateways/orderGateway'
 
 export const myAxios = axios.create({
   baseURL: 'http://localhost:3057/',
@@ -35,7 +34,7 @@ export const api = {
 /* Adapter 1 is a object with methods.
 As opposed to the in memory adapter, we don't need to use an IIFE here
 becase there are not private properties to refer to. */
-export const orderJsonServerDbAdapter1: OrderGateway1 = {
+export const orderAdapter1: OrderGateway1 = {
   getAll: async (): Promise<Order[] | undefined> => {
     const result = await api.get<Order[]>('/orders')
     return result
@@ -47,7 +46,7 @@ export const orderJsonServerDbAdapter1: OrderGateway1 = {
 }
 
 // Adapter 2 is a function that returns a object with methods
-export const orderJsonServerDbAdapter2 = () => {
+export const orderAdapter2 = () => {
   return {
     getAll: async (): Promise<Order[] | undefined> => {
       const result = await api.get<Order[]>('/orders')

@@ -1,9 +1,8 @@
-// src / adapters / dbAdapters / inMemory / order.inMemory.dbAdapter.ts
+// src / adapters / Adapters / inMemory / order.inMemory.Adapter.ts
 
 import { Order } from 'entities/order'
-import { inMemoryDb } from 'mock/inMemoryDb'
-
-import { OrderGateway1 } from '~/src/core/gateways/orderGateway'
+import { OrderGateway1 } from 'gateways/orderGateway'
+import { inMemory } from 'mock/inMemory'
 
 // Both dbs (in memory and json server) work both with both gateways (1 and 2)
 
@@ -15,27 +14,27 @@ An IIFF is written as follows:
 as opposed to a simple function written as follows:
    () => { ... }
 By using an IIFE, the value assigned to gateway 1 is the return value of the IIFE, instead of the IIFE itself.
-The reason we use an IIFE rather than simply assigning the return objec to gateway 1 is to have a private variable (ordersDb) that
+The reason we use an IIFE rather than simply assigning the return objec to gateway 1 is to have a private variable (orders) that
 is accessible by these methods, but not from outside. */
 
-export const orderInMemoryDbAdapter1: OrderGateway1 = (() => {
-  const ordersDb: Order[] = [...inMemoryDb.orders]
+export const orderAdapter1: OrderGateway1 = (() => {
+  const orders: Order[] = [...inMemory.orders]
   return {
-    getAll: () => Promise.resolve(ordersDb),
-    getById: (orderId: string) => Promise.resolve(ordersDb.find((order) => order.id === orderId)),
+    getAll: () => Promise.resolve(orders),
+    getById: (orderId: string) => Promise.resolve(orders.find((order) => order.id === orderId)),
   }
 })()
 
 /* Adapter 2 is a simple function that returns a object containing methods. These methods
-also have access to the private variable (ordersDb) because they are
+also have access to the private variable (orders) because they are
 "closures" (functions that have access to the parent scope, even after the
 parent function has closed). */
 
-export const orderInMemoryDbAdapter2 = () => {
-  const ordersDb: Order[] = [...inMemoryDb.orders]
+export const orderAdapter2 = () => {
+  const orders: Order[] = [...inMemory.orders]
   return {
-    getAll: () => ordersDb,
-    getById: (orderId: string) => ordersDb.find((order) => order.id === orderId),
+    getAll: () => orders,
+    getById: (orderId: string) => orders.find((order) => order.id === orderId),
   }
 }
 
@@ -47,6 +46,6 @@ export const orderInMemoryDbAdapter2 = () => {
   - adapter 1 is created by an IIFE that returns the object
   - adatper 2 is declared as a simple function
 - usage:
-  - adapter 1 is called without (): orderInMemoryDbAdapter1
-  - adapter i is called with a (): orderInMemoryDbAdapter2()
+  - adapter 1 is called without (): orderInMemoryAdapter1
+  - adapter i is called with a (): orderInMemoryAdapter2()
 */

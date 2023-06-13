@@ -1,54 +1,55 @@
-import { orderInMemoryDbAdapter1, orderInMemoryDbAdapter2 } from 'adapters/dbAdapters/inMemory/orderInMemoryDbAdapter'
 import {
-  orderJsonServerDbAdapter1,
-  orderJsonServerDbAdapter2,
-} from 'adapters/dbAdapters/jsonServer/orderJsonServerDbAdapter'
-import { inMemoryDb } from 'mock/inMemoryDb'
+  orderAdapter1 as orderInMemoryAdapter1,
+  orderAdapter2 as orderInMemoryAdapter2,
+} from 'adapters/inMemory/orderInMemoryAdapter'
+import {
+  orderAdapter1 as orderJsonServerAdapter1,
+  orderAdapter2 as orderJsonServerAdapter2,
+} from 'adapters/jsonServer/orderJsonServerAdapter'
+import { inMemory } from 'mock/inMemory'
 
 import { orderGateway2, orderGateway3 } from './orderGateway'
 
-const orders = inMemoryDb.orders
+const orders = inMemory.orders
 
-const orderDbGateways1 = [
-  { scenario: 'gateway 1 + json', orderDbAdapter: orderInMemoryDbAdapter1 },
-  { scenario: 'gateway 1 + in memory', orderDbAdapter: orderJsonServerDbAdapter1 },
+const scenarios1 = [
+  { scenario: 'gateway 1 + in memory', orderAdapter1: orderInMemoryAdapter1 },
+  { scenario: 'gateway 1 + json', orderAdapter1: orderJsonServerAdapter1 },
 ]
 
-describe('Order gateways 1 → for each order adapter', () => {
-  orderDbGateways1.forEach(({ scenario, orderDbAdapter }) => {
+describe('Order gateways 1 → for each order adapters 1', () => {
+  scenarios1.forEach(({ scenario, orderAdapter1 }) => {
     describe(scenario, () => {
       it('should return all orders from the db', async () => {
-        const result = await orderDbAdapter.getAll()
+        const result = await orderAdapter1.getAll()
         return expect(result).toEqual(orders)
       })
 
       it('should return the order with the specified ID from the db', async () => {
-        const result = await orderDbAdapter.getById('order1')
+        const result = await orderAdapter1.getById('order1')
         return expect(result).toEqual(orders[1])
       })
     })
   })
 })
 
-const orderDbGateways2 = [
-  { scenario: 'gateway 2 + json', orderDbGateway: orderGateway2, orderDbAdapter: orderInMemoryDbAdapter2() },
-  { scenario: 'gateway 2 + in memory', orderDbGateway: orderGateway2, orderDbAdapter: orderJsonServerDbAdapter2() },
-  { scenario: 'gateway 3 + json', orderDbGateway: orderGateway3, orderDbAdapter: orderInMemoryDbAdapter2() },
-  { scenario: 'gateway 3 + in memory', orderDbGateway: orderGateway3, orderDbAdapter: orderJsonServerDbAdapter2() },
+const scenarios2 = [
+  { scenario: 'gateway 2 + in memory adapter', orderGateway2: orderGateway2, orderAdapter2: orderInMemoryAdapter2() },
+  { scenario: 'gateway 2 + json adapter', orderGateway2: orderGateway2, orderAdapter2: orderJsonServerAdapter2() },
+  { scenario: 'gateway 3 + in memory adapter', orderGateway2: orderGateway3, orderAdapter2: orderInMemoryAdapter2() },
+  { scenario: 'gateway 3 + json adapter', orderGateway2: orderGateway3, orderAdapter2: orderJsonServerAdapter2() },
 ]
 
-describe('Order gateways 2 → for each order gateway & adapter', () => {
-  orderDbGateways2.forEach(({ scenario, orderDbGateway, orderDbAdapter }) => {
+describe('Order gateways 2 & 3 → for each order gateway 2 & 3, and for each adapter 2', () => {
+  scenarios2.forEach(({ scenario, orderGateway2, orderAdapter2 }) => {
     describe(scenario, () => {
       it('should return all orders from the db', async () => {
-        const orderGateway = orderDbGateway(orderDbAdapter)
-        const result = await orderGateway.getAll()
+        const result = await orderGateway2(orderAdapter2).getAll()
         return expect(result).toEqual(orders)
       })
 
       it('should return the order with the specified ID from the db', async () => {
-        const orderGateway = orderDbGateway(orderDbAdapter)
-        const result = await orderGateway.getById('order1')
+        const result = await orderGateway2(orderAdapter2).getById('order1')
         return expect(result).toEqual(orders[1])
       })
     })

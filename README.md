@@ -15,14 +15,14 @@ The two approaches for gateways & adapters are:
 
 The mock data used for tests is provided in the `/mock/` folder:
 
-- in memory: `inMemoryDb.ts`
-- json server: `jsonServerDb.json`
+- in memory: `inMemory.ts`
+- json server: `jsonServer.json`
 
 ## Usage
 
 - Install dependencies with: `pnpm install` (pnpm is recommended, but npm or yarn should also work)
 - Install json-server with: `pnpm install -g json-server` (if you don't have it already)
-- Reset the json-server database with: `pnpm db-resetDb`
+- Reset the json-server database with: `pnpm db-reset`
 - Launch the json-server with: `pnpm db`
 - Check that the json-server is running by going to: `http://localhost:3057/`
 - Run the tests with: `pnpm test`
