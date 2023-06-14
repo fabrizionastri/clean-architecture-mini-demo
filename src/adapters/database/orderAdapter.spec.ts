@@ -1,18 +1,12 @@
-import {
-  orderAdapter1 as orderInMemoryAdapter1,
-  orderAdapter2 as orderInMemoryAdapter2,
-} from 'adapters/inMemory/orderInMemoryAdapter'
-import {
-  orderAdapter1 as orderJsonServerAdapter1,
-  orderAdapter2 as orderJsonServerAdapter2,
-} from 'adapters/jsonServer/orderJsonServerAdapter'
-import { inMemory } from 'mock/inMemory'
+import { inMemory } from '../../../mock/inMemory'
+import { orderAdapterInMemory1, orderAdapterInMemory2 } from './inMemory/orderAdapterInMemory'
+import { orderAdapterJsonServer1, orderAdapterJsonServer2 } from './jsonServer/orderAdapterJsonServer'
 
 const scenarios = [
-  { adapterName: 'orderInMemoryAdapter1', orderAdapter: orderInMemoryAdapter1 },
-  { adapterName: 'orderJsonServerAdapter1', orderAdapter: orderJsonServerAdapter1 },
-  { adapterName: 'orderInMemoryAdapter2()', orderAdapter: orderInMemoryAdapter2() },
-  { adapterName: 'orderJsonServerAdapter2()', orderAdapter: orderJsonServerAdapter2() },
+  { adapterName: 'orderAdapterInMemory1', orderAdapter: orderAdapterInMemory1 },
+  { adapterName: 'orderAdapterJsonServer1', orderAdapter: orderAdapterJsonServer1 },
+  { adapterName: 'orderAdapterInMemory2()', orderAdapter: orderAdapterInMemory2() },
+  { adapterName: 'orderAdapterJsonServer2()', orderAdapter: orderAdapterJsonServer2() },
 ]
 
 const orders = inMemory.orders

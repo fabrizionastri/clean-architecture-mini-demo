@@ -1,5 +1,5 @@
 // src/core/gateways/order.gateway.ts
-import { Order } from 'entities/order'
+import { Order } from '../entities/order'
 
 /* Gateway 1 needs to be async because for some DB implementations, the request may be async.
 Gateway 1 is an interface for an object with methods */

@@ -21,7 +21,9 @@ The mock data used for tests is provided in the `/mock/` folder:
 ## Usage
 
 - Install dependencies with: `pnpm install` (pnpm is recommended, but npm or yarn should also work)
-- Install json-server with: `pnpm install -g json-server` (if you don't have it already)
+- Install json-server with: `pnpm install -g json-server`
 - Launch the json-server with: `pnpm json-server`
-- Check that the json-server is running by going to: `http://localhost:3057/`
+- Check out the json-server at: `http://localhost:3057/`
 - Run the tests with: `pnpm test`
+- Launch the express server with: `pnpm express`
+- Check out the express/ejs front at: `http://localhost:3001/`

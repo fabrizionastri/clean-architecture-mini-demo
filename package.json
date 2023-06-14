@@ -8,7 +8,7 @@
     "format": "prettier --write .",
     "test": "vitest --reporter verbose",
     "test:cov": "vitest --coverage",
-    "dev": "nodemon",
+    "express": "nodemon",
     "json-server": " json-server --port 3057 --watch ./mock/jsonServer.json",
     "reset-json-server": "ts-node ./src/utils/resetJsonServer.ts"
   },
