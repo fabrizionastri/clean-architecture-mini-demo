@@ -9,8 +9,8 @@
     "test": "vitest --reporter verbose",
     "test:cov": "vitest --coverage",
     "dev": "nodemon",
-    "db": " json-server --port 3057 --watch ./mock/jsonServer.json",
-    "reset": "ts-node ./src/utils/resetJsonServer.ts"
+    "json-server": " json-server --port 3057 --watch ./mock/jsonServer.json",
+    "reset-json-server": "ts-node ./src/utils/resetJsonServer.ts"
   },
   "keywords": [],
   "author": "",
