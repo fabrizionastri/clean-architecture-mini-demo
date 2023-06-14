@@ -1,5 +1,5 @@
 <template>
-  <h2>Vue Order Detail! - {{ scenario }}</h2>
+  <h3>Scenario: {{ scenario }}</h3>
   <ul>
     <li>Order ID: {{ order.id }}</li>
     <li>Name: {{ order.name }}</li>

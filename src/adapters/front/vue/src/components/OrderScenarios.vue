@@ -1,5 +1,5 @@
 <template>
-  <h1>OrderScenarios.vue : Order Detail scenarios !</h1>
+  <h1>Vue Order Scenarios</h1>
   <ul>
     <li v-for="result in results">
       <OrderDetail :scenario="result.scenario" :order="result.order" />
@@ -15,6 +15,7 @@ interface Result {
   scenario: string
   order: Order
 }
+
 export default {
   name: 'OrderScenarios',
   data: () => ({

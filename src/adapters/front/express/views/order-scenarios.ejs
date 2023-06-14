@@ -1,0 +1,16 @@
+<h1>Express Order Scenarios</h1>
+
+<% for(let result of results) { %>
+  <h3>Scenario: <%= result.scenario %>
+  </h3>
+  <ul>
+    <li>Order ID: <%= result.order.id %>
+    </li>
+    <li>Name: <%= result.order.name %>
+    </li>
+    <li>Client ID: <%= result.order.clientId %>
+    </li>
+    <li>Supplier ID: <%= result.order.supplierId %>
+    </li>
+  </ul>
+  <% } %>

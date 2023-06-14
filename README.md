@@ -27,3 +27,5 @@ The mock data used for tests is provided in the `/mock/` folder:
 - Run the tests with: `pnpm test`
 - Launch the express server with: `pnpm express`
 - Check out the express/ejs front at: `http://localhost:3001/`
+- Launch the vue server with: `pnpm vue`
+- Check out the express/ejs front at: `http://localhost:5173/`

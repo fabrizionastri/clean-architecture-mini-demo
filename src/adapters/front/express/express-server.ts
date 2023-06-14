@@ -1,10 +1,7 @@
 import express, { Express, Request, Response } from 'express'
 import expressEjsLayouts from 'express-ejs-layouts'
 
-import { orderGateway2 } from '../../../core/gateways/orderGateway'
-import { fetchOrderById1, fetchOrderById2 } from '../../../core/usecases/fetchById'
-import { orderAdapterInMemory1, orderAdapterInMemory2 } from '../../database/inMemory/orderAdapterInMemory'
-import { orderAdapterJsonServer1, orderAdapterJsonServer2 } from '../../database/jsonServer/orderAdapterJsonServer'
+import { Order, scenarios } from '../../../core/coreIndex'
 
 // SERVER SET UP
 
@@ -23,35 +20,18 @@ app.use(express.json()) // To parse incoming JSON requests. Important : if you d
 
 // DATABASE SET UPù
 
-app.get('/', (_req: Request, res: Response) => {
-  res.render('index', { expressUrl })
-})
-
-// app.get('/order', async (_req: Request, res: Response) => {
-//   const orders = await orderStore.getAll()
-//   // res.send(JSON.stringify(orders))
-//   res.render('order-all', { orders })
-// })
-
-const createOrderRoute = (fetchOrderById: any, orderAdapter: any) => {
-  return async (req: Request, res: Response) => {
-    const id = req.params.id
-    const order = await fetchOrderById(orderAdapter)(id)
-    if (order) {
-      res.render('order-detail', { order })
-    } else {
-      res.send('Order not found')
-    }
+app.get('/', async (_req: Request, res: Response) => {
+  interface Result {
+    scenario: string
+    order: Order
   }
-}
-
-app.get('/orderAdapterInMemory1/:id', createOrderRoute(fetchOrderById1, orderAdapterInMemory1))
-
-app.get('/orderAdapterInMemory2/:id', createOrderRoute(fetchOrderById2, orderGateway2(orderAdapterInMemory2())))
-
-app.get('/orderAdapterJsonServer1/:id', createOrderRoute(fetchOrderById1, orderAdapterJsonServer1))
-
-app.get('/orderAdapterJsonServer2/:id', createOrderRoute(fetchOrderById2, orderGateway2(orderAdapterJsonServer2())))
+  const results: Result[] = []
+  for (const scenario of scenarios) {
+    const order = await scenario.fetch(scenario.adapter)('order1')
+    results.push({ scenario: scenario.scenario, order })
+  }
+  res.render('order-scenarios', { results })
+})
 
 // SERVER LISTENING
 
