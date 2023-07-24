@@ -29,3 +29,4 @@ The mock data used for tests is provided in the `/mock/` folder:
 - Check out the express/ejs front at: `http://localhost:3001/`
 - Launch the vue server with: `pnpm vue`
 - Check out the express/ejs front at: `http://localhost:5173/`
+- If the mock data has changed, reset the json server: `pnpm reset-json-server`

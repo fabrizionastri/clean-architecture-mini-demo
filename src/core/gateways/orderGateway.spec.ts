@@ -1,6 +1,9 @@
 import { inMemory } from 'mock/inMemory'
 
-import { orderAdapterInMemory1, orderAdapterInMemory2 } from '../../adapters/database/inMemory/orderAdapterInMemory'
+import {
+  orderAdapterInMemory1,
+  orderAdapterInMemory2,
+} from '../../adapters/database/inMemory/orderAdapterInMemory'
 import {
   orderAdapterJsonServer1,
   orderAdapterJsonServer2,
@@ -31,10 +34,26 @@ describe('Order gateways 1 → for each order adapters 1', () => {
 })
 
 const scenarios2 = [
-  { scenario: 'gateway 2 + in memory adapter', orderGateway2: orderGateway2, orderAdapter2: orderAdapterInMemory2() },
-  { scenario: 'gateway 2 + json adapter', orderGateway2: orderGateway2, orderAdapter2: orderAdapterJsonServer2() },
-  { scenario: 'gateway 3 + in memory adapter', orderGateway2: orderGateway3, orderAdapter2: orderAdapterInMemory2() },
-  { scenario: 'gateway 3 + json adapter', orderGateway2: orderGateway3, orderAdapter2: orderAdapterJsonServer2() },
+  {
+    scenario: 'gateway 2 + in memory adapter',
+    orderGateway2: orderGateway2,
+    orderAdapter2: orderAdapterInMemory2(),
+  },
+  {
+    scenario: 'gateway 2 + json adapter',
+    orderGateway2: orderGateway2,
+    orderAdapter2: orderAdapterJsonServer2(),
+  },
+  {
+    scenario: 'gateway 3 + in memory adapter',
+    orderGateway2: orderGateway3,
+    orderAdapter2: orderAdapterInMemory2(),
+  },
+  {
+    scenario: 'gateway 3 + json adapter',
+    orderGateway2: orderGateway3,
+    orderAdapter2: orderAdapterJsonServer2(),
+  },
 ]
 
 describe('Order gateways 2 & 3 → for each order gateway 2 & 3, and for each adapter 2', () => {
