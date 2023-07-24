@@ -18,7 +18,7 @@ app.set('views', './src/adapters/front/express/views')
 app.use(express.urlencoded({ extended: true })) // To parse incoming URL-encoded requests (form data in POST request body). Important : if you do not do this, you won't be able to get data from a POST request body
 app.use(express.json()) // To parse incoming JSON requests. Important : if you do not do this, you won't be able to get data from a POST request body
 
-// DATABASE SET UPù
+// DATABASE SET UP
 
 app.get('/', async (_req: Request, res: Response) => {
   interface Result {

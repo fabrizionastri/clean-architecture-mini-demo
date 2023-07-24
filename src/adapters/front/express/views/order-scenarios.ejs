@@ -1,16 +1,31 @@
 <h1>Express Order Scenarios</h1>
+<ul>
+  <% for(let result of results) { %>
+    <li>
+      <h3>Scenario: <%= result.scenario %>
+      </h3>
+      <ul>
+        <li>Order ID: <%= result.order.id %>
+        </li>
+        <li>Name: <%= result.order.name %>
+        </li>
+        <li>Client ID: <%= result.order.clientId %>
+        </li>
+        <li>Supplier ID: <%= result.order.supplierId %>
+        </li>
+      </ul>
+    </li>
+    <% } %>
+</ul>
 
-<% for(let result of results) { %>
-  <h3>Scenario: <%= result.scenario %>
-  </h3>
-  <ul>
-    <li>Order ID: <%= result.order.id %>
-    </li>
-    <li>Name: <%= result.order.name %>
-    </li>
-    <li>Client ID: <%= result.order.clientId %>
-    </li>
-    <li>Supplier ID: <%= result.order.supplierId %>
-    </li>
-  </ul>
-  <% } %>
+<style>
+  h3 {
+    /* margin top, except for the first line */
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  h1 {
+    margin-bottom: 0;
+  }
+</style>
