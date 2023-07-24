@@ -8,12 +8,12 @@
 </template>
 
 <script lang="ts">
-import { Order, scenarios } from '../../../../../core/coreIndex'
+import { OrderData, scenarios } from '../../../../../core/coreIndex'
 import OrderDetail from './OrderDetail.vue'
 
 interface Result {
   scenario: string
-  order: Order
+  order: OrderData
 }
 
 export default {

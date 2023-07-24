@@ -19,6 +19,7 @@
     "paths": {
       "~/*": ["./*"],
       "@/*": ["./src/*"],
+      "core/*": ["./src/core/*", "./src/core"],
       "entities/*": ["./src/core/entities/*", "./src/core/entities"],
       "usecases/*": ["./src/core/usecases/*", "./src/core/usecases"],
       "gateways/*": ["./src/core/gateways/*", "./src/core/gateways"],

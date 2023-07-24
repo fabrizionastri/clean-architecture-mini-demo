@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express'
 import expressEjsLayouts from 'express-ejs-layouts'
 
-import { Order, scenarios } from '../../../core/coreIndex'
+import { OrderData, scenarios } from '../../../core/coreIndex'
 
 // SERVER SET UP
 
@@ -23,7 +23,7 @@ app.use(express.json()) // To parse incoming JSON requests. Important : if you d
 app.get('/', async (_req: Request, res: Response) => {
   interface Result {
     scenario: string
-    order: Order
+    order: OrderData
   }
   const results: Result[] = []
   for (const scenario of scenarios) {

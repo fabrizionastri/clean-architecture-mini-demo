@@ -1,6 +1,8 @@
 import { ItemData } from 'entities/item'
 import { inMemory } from 'mock/inMemory'
 
+import { ItemAdapter } from '../interfaces'
+
 // Both dbs (in memory and json server) work both with both gateways (1 and 2)
 
 /* Adapter 1 is object containing methods
@@ -14,7 +16,7 @@ By using an IIFE, the value assigned to gateway is the return value of the IIFE,
 The reason we use an IIFE rather than simply assigning the return object to the gateway is to have a private variable (items) that
 is accessible by these methods, but not from outside. */
 
-export const itemAdapterInMemory1 = (() => {
+export const itemAdapterInMemory1: ItemAdapter = (() => {
   const items: ItemData[] = [...inMemory.items]
   return {
     getAll: () => Promise.resolve(items),
@@ -28,11 +30,12 @@ also have access to the private variable (items) because they are
 "closures" (functions that have access to the parent scope, even after the
 parent function has closed). */
 
-export const itemAdapterInMemory2 = () => {
+export const itemAdapterInMemory2 = (): ItemAdapter => {
   const items: ItemData[] = [...inMemory.items]
   return {
-    getAll: () => items,
-    getById: (itemId: string) => items.find((item) => item.id === itemId),
+    getAll: () => Promise.resolve(items),
+    getById: (itemId: string) =>
+      Promise.resolve(items.find((item) => item.id === itemId)),
   }
 }
 

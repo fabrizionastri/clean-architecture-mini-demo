@@ -1,6 +1,7 @@
 import { OrderData } from 'entities/order'
 import { OrderGateway1 } from 'gateways/orderGateway'
-import { inMemory } from 'mock/inMemory'
+
+import { inMemory } from '../../../../mock/inMemory'
 
 // Both dbs (in memory and json server) work both with both gateways (1 and 2)
 

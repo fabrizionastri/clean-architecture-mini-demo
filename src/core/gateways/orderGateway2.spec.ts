@@ -1,4 +1,4 @@
-import { Order } from 'entities/order'
+import { OrderData } from 'entities/order'
 import { orderGateway2 as orderGateway } from 'gateways/orderGateway'
 
 describe('Order Gateway', () => {
@@ -22,8 +22,8 @@ describe('Order Gateway', () => {
   })
 
   describe('getAll', () => {
-    it('should return all orders', async () => {
-      const orders: Order[] = [
+    it('should return all orders with Data', async () => {
+      const orders: OrderData[] = [
         {
           id: '1',
           clientId: '123',
@@ -49,7 +49,7 @@ describe('Order Gateway', () => {
 
   describe('getById', () => {
     it('should return the order with the specified id', async () => {
-      const order: Order = {
+      const order: OrderData = {
         id: '1',
         clientId: '123',
         supplierId: '456',

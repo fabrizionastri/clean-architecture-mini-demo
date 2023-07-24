@@ -1,12 +1,22 @@
 import { Item, ItemData } from 'entities/item'
 import { round6 } from 'utils/round'
 
-export const itemGateway = (adapter: any) => {
+import { ItemAdapter } from '~/src/adapters/database/interfaces'
+
+export const itemGateway = (adapter: ItemAdapter) => {
   return {
+    getAllData: (): Promise<ItemData[]> => adapter.getAll(),
+    getByIdData: (itemId: string): Promise<ItemData | undefined> =>
+      adapter.getById(itemId),
     getAll: (): Promise<Item[]> =>
       adapter.getAll().then((items: ItemData[]) => items.map(calculateItem)),
-    getById: (itemId: string): Promise<Item> =>
-      adapter.getById(itemId).then(calculateItem),
+    getById: (itemId: string): Promise<Item | undefined> =>
+      adapter.getById(itemId).then((item: ItemData | undefined) => {
+        if (item) {
+          return calculateItem(item)
+        }
+        return undefined
+      }),
   }
 }
 
