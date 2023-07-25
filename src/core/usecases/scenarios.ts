@@ -6,7 +6,7 @@ import {
   orderAdapterJsonServer1,
   orderAdapterJsonServer2,
 } from '../../adapters/database/jsonServer/orderAdapterJsonServer'
-import { orderGateway2, orderGateway3 } from '../gateways/orderGateway'
+import { orderGateway2, orderGateway3 } from '../gateways/orderGatewayX'
 import { fetchOrderById1, fetchOrderById2 } from './fetchById'
 
 export const scenarios = [

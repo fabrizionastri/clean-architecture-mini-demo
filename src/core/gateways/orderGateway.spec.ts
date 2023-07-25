@@ -1,73 +1,68 @@
-import { inMemory } from 'mock/inMemory'
+import { ItemAdapter, OrderAdapter } from 'adapters/database/adapterInterfaces'
+import { orderGateway } from 'gateways/orderGateway'
+import { itemDatas, orderDatas, orders } from 'mock/testData'
 
-import {
-  orderAdapterInMemory1,
-  orderAdapterInMemory2,
-} from '../../adapters/database/inMemory/orderAdapterInMemory'
-import {
-  orderAdapterJsonServer1,
-  orderAdapterJsonServer2,
-} from '../../adapters/database/jsonServer/orderAdapterJsonServer'
-import { orderGateway2, orderGateway3 } from './orderGateway'
+import { OrderGateway } from './gatewayInterfaces'
 
-const orders = inMemory.orders
+describe('orderGateway', () => {
+  // QESTION : should we add types here?
+  let mockOrderAdapter: OrderAdapter
+  let mockItemAdapter: ItemAdapter
+  let orderGtw: OrderGateway
 
-const scenarios1 = [
-  { scenario: 'gateway 1 + in memory', orderAdapter1: orderAdapterInMemory1 },
-  { scenario: 'gateway 1 + json', orderAdapter1: orderAdapterJsonServer1 },
-]
-
-describe('Order gateways 1 → for each order adapters 1', () => {
-  scenarios1.forEach(({ scenario, orderAdapter1 }) => {
-    describe(scenario, () => {
-      it('should return all orders from the db', async () => {
-        const result = await orderAdapter1.getAll()
-        return expect(result).toEqual(orders)
-      })
-
-      it('should return the order with the specified ID from the db', async () => {
-        const result = await orderAdapter1.getById('order1')
-        return expect(result).toEqual(orders[1])
-      })
-    })
+  beforeEach(() => {
+    mockOrderAdapter = {
+      getAll: vitest.fn().mockResolvedValue(orderDatas),
+      getById: vitest
+        .fn()
+        .mockImplementation((id: string) =>
+          Promise.resolve(orderDatas.find((order) => order.id === id))
+        ),
+    }
+    mockItemAdapter = {
+      getAll: vitest.fn().mockResolvedValue(itemDatas),
+      getById: vitest
+        .fn()
+        .mockImplementation((id: string) =>
+          Promise.resolve(itemDatas.find((item) => item.id === id))
+        ),
+      getByOrderId: vitest
+        .fn()
+        .mockImplementation((orderId: string) =>
+          Promise.resolve(itemDatas.filter((item) => item.orderId === orderId))
+        ),
+    }
+    orderGtw = orderGateway(mockOrderAdapter, mockItemAdapter)
   })
-})
 
-const scenarios2 = [
-  {
-    scenario: 'gateway 2 + in memory adapter',
-    orderGateway2: orderGateway2,
-    orderAdapter2: orderAdapterInMemory2(),
-  },
-  {
-    scenario: 'gateway 2 + json adapter',
-    orderGateway2: orderGateway2,
-    orderAdapter2: orderAdapterJsonServer2(),
-  },
-  {
-    scenario: 'gateway 3 + in memory adapter',
-    orderGateway2: orderGateway3,
-    orderAdapter2: orderAdapterInMemory2(),
-  },
-  {
-    scenario: 'gateway 3 + json adapter',
-    orderGateway2: orderGateway3,
-    orderAdapter2: orderAdapterJsonServer2(),
-  },
-]
+  afterEach(() => {
+    vitest.resetAllMocks()
+  })
 
-describe('Order gateways 2 & 3 → for each order gateway 2 & 3, and for each adapter 2', () => {
-  scenarios2.forEach(({ scenario, orderGateway2, orderAdapter2 }) => {
-    describe(scenario, () => {
-      it('should return all orders from the db', async () => {
-        const result = await orderGateway2(orderAdapter2).getAll()
-        return expect(result).toEqual(orders)
-      })
+  it('getAllData should return all orders', async () => {
+    const result = await orderGtw.getAllData()
+    expect(mockOrderAdapter.getAll).toHaveBeenCalledTimes(1)
+    expect(result).toEqual(orderDatas)
+  })
 
-      it('should return the order with the specified ID from the db', async () => {
-        const result = await orderGateway2(orderAdapter2).getById('order1')
-        return expect(result).toEqual(orders[1])
-      })
-    })
+  it('getByIdData should return the order with raw data only', async () => {
+    const result = await orderGtw.getByIdData('0')
+    expect(mockOrderAdapter.getById).toHaveBeenCalledTimes(1)
+    expect(mockOrderAdapter.getById).toHaveBeenCalledWith('0')
+    expect(result).toEqual(orderDatas[0])
+  })
+
+  it('getAll should return all orders with items and calculations', async () => {
+    const result = await orderGtw.getAll()
+    expect(mockOrderAdapter.getAll).toHaveBeenCalledTimes(1)
+    expect(mockItemAdapter.getByOrderId).toHaveBeenCalledTimes(2)
+    expect(result).toEqual(orders)
+  })
+
+  it('getById should return the order with items and calculations', async () => {
+    const result = await orderGtw.getById('0')
+    expect(mockOrderAdapter.getById).toHaveBeenCalledTimes(1)
+    expect(mockOrderAdapter.getById).toHaveBeenCalledWith('0')
+    expect(result).toEqual(orders[0])
   })
 })

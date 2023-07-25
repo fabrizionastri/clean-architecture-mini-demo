@@ -24,7 +24,7 @@ const scenarios = [
   },
 ]
 
-const orders = inMemory.orders
+const orders = inMemory.orderDatas
 
 describe('Order adapters → for each orderAdapter', () => {
   scenarios.forEach(({ adapterName, orderAdapter }) => {

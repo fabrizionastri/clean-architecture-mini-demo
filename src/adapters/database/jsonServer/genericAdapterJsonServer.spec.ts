@@ -1,7 +1,7 @@
 import axios from 'axios'
 import type { Mock } from 'vitest'
 
-import { genericAdapter as genericAdapter } from './genericAdapterJsonServer'
+import { genericAdapterJsonServer } from './genericAdapterJsonServer'
 
 const baseUrl = 'http://localhost:3057'
 const dummyData = [
@@ -11,29 +11,36 @@ const dummyData = [
 
 // This sets the mock adapter on the default instance
 vi.mock('axios')
-const axiosGetMock = axios.get as unknown as Mock
+const axiosGetMock = axios.get as Mock
 
-axiosGetMock.mockImplementation((url: string) => {
-  switch (url) {
-    case '/items':
-      return Promise.resolve({ data: dummyData })
-    case '/items/1':
-      return Promise.resolve({ data: dummyData[0] })
-    default:
-      return Promise.reject(new Error('Not found'))
-  }
-})
-
-describe('genericAdapter', () => {
+describe('genericAdapterJsonServer', () => {
+  beforeEach(() => {
+    axiosGetMock.mockImplementation((url: string) => {
+      switch (url) {
+        case `${baseUrl}/items`:
+          return Promise.resolve({ data: dummyData })
+        case `${baseUrl}/items/1`:
+          return Promise.resolve({ data: dummyData[0] })
+        default:
+          return Promise.resolve({ data: undefined })
+      }
+    })
+  })
   it('should get all items', async () => {
-    const adapter = genericAdapter(baseUrl, 'items')
+    const adapter = genericAdapterJsonServer(baseUrl, 'items')
     const items = await adapter.getAll()
     expect(items).toEqual(dummyData)
   })
 
   it('should get item by id', async () => {
-    const adapter = genericAdapter(baseUrl, 'items')
+    const adapter = genericAdapterJsonServer(baseUrl, 'items')
     const item = await adapter.getById('1')
     expect(item).toEqual(dummyData[0])
+  })
+
+  it('should return error if item not found', async () => {
+    const adapter = genericAdapterJsonServer(baseUrl, 'items')
+    const item = await adapter.getById('3')
+    expect(item).toEqual(undefined)
   })
 })

@@ -1,8 +1,6 @@
-// src/adapters/database/Adapters/jsonServer/order.jsonServer.Adapter.ts
+// src/adapters/database/Adapters/jsonServer/item.jsonServer.Adapter.ts
 import axios, { AxiosResponse, Method } from 'axios'
-import { OrderData } from 'entities/order'
-
-import { OrderGateway1 } from '~/src/core/gateways/orderGatewayX'
+import { ItemData } from 'entities/item'
 
 export const myAxios = axios.create({
   baseURL: 'http://localhost:3057/',
@@ -11,7 +9,7 @@ export const myAxios = axios.create({
 
 export const handleRequest =
   (httpMethod: Method) =>
-  async <Order>(url: string, data?: any): Promise<Order | undefined> => {
+  async <Item>(url: string, data?: any): Promise<Item | undefined> => {
     try {
       const response: AxiosResponse = await myAxios.request({
         url,
@@ -35,26 +33,26 @@ export const api = {
 /* Adapter 1 is a object with methods.
 As opposed to the in memory adapter, we don't need to use an IIFE here
 becase there are not private properties to refer to. */
-export const orderAdapterJsonServer1: OrderGateway1 = {
-  getAll: async (): Promise<OrderData[] | undefined> => {
-    const result = await api.get<OrderData[]>('/orders')
+export const itemAdapterJsonServer1 = {
+  getAll: async (): Promise<ItemData[] | undefined> => {
+    const result = await api.get<ItemData[]>('/items')
     return result
   },
-  getById: async (id: string): Promise<OrderData | undefined> => {
-    const result = await api.get<OrderData>(`/orders/${id}`)
+  getById: async (id: string): Promise<ItemData | undefined> => {
+    const result = await api.get<ItemData>(`/items/${id}`)
     return result
   },
 }
 
 // Adapter 2 is a function that returns a object with methods
-export const orderAdapterJsonServer2 = () => {
+export const itemAdapterJsonServer2 = () => {
   return {
-    getAll: async (): Promise<OrderData[] | undefined> => {
-      const result = await api.get<OrderData[]>('/orders')
+    getAll: async (): Promise<ItemData[] | undefined> => {
+      const result = await api.get<ItemData[]>('/items')
       return result
     },
-    getById: async (id: string): Promise<OrderData | undefined> => {
-      const result = await api.get<OrderData>(`/orders/${id}`)
+    getById: async (id: string): Promise<ItemData | undefined> => {
+      const result = await api.get<ItemData>(`/items/${id}`)
       return result
     },
   }

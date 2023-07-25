@@ -1,25 +1,61 @@
-// src/core/gateways/order.gateway.ts
-import { OrderData } from 'entities/order'
+import { Item } from 'entities/item'
+import { Order, OrderData } from 'entities/order'
+import { itemGateway } from 'gateways/itemGateway'
+import { round6 } from 'utils/round'
 
-/* Gateway 1 needs to be async because for some DB implementations, the request may be async.
-Gateway 1 is an interface for an object with methods */
-export interface OrderGateway1 {
-  getAll: () => Promise<OrderData[] | undefined>
-  getById: (orderId: string) => Promise<OrderData | undefined>
-}
+import {
+  ItemAdapter,
+  OrderAdapter,
+} from '~/src/adapters/database/adapterInterfaces'
 
-// gateway 2 is a function that returns a object with methods
-export const orderGateway2 = (orderAdapter: any) => {
+import { OrderGateway } from './gatewayInterfaces'
+
+export const orderGateway = (
+  orderAdapter: OrderAdapter,
+  itemAdapter: ItemAdapter
+): OrderGateway => {
+  const itemGtw = itemGateway(itemAdapter)
+
   return {
-    getAll: (): OrderData[] => orderAdapter.getAll(),
-    getById: (orderId: string): OrderData => orderAdapter.getById(orderId),
+    getAllData: (): Promise<OrderData[]> => orderAdapter.getAll(),
+    getByIdData: (orderId: string): Promise<OrderData | undefined> =>
+      orderAdapter.getById(orderId),
+    getAll: (): Promise<Order[]> =>
+      orderAdapter
+        .getAll()
+        .then((orders: OrderData[]) =>
+          Promise.all(orders.map(addItemsAndCalculate))
+        ),
+    getById: (orderId: string): Promise<Order | undefined> =>
+      orderAdapter.getById(orderId).then((order: OrderData | undefined) => {
+        if (order) {
+          return addItemsAndCalculate(order)
+        }
+        return undefined
+      }),
   }
-}
 
-// gateway 3 is equivalent to gateway 2: different syntax but same usage and result
-export const orderGateway3 = (orderAdapter: any) => {
-  return {
-    getAll: orderAdapter.getAll,
-    getById: orderAdapter.getById,
+  async function addItemsAndCalculate(order: OrderData): Promise<Order> {
+    const items: Item[] = await itemGtw.getByOrderId(order.id)
+
+    const amountExclTax = round6(
+      items.reduce((sum, item) => sum + item.amountExclTax, 0)
+    )
+    const taxAmount = round6(
+      items.reduce((sum, item) => sum + item.amountExclTax * item.taxRate, 0)
+    )
+    const amountInclTax = round6(amountExclTax + taxAmount)
+    const averageTaxRate = amountExclTax ? round6(taxAmount / amountExclTax) : 0
+
+    return {
+      name: order.name ? order.name : '',
+      ...order,
+      items: items,
+      amountExclTax,
+      amountInclTax,
+      taxAmount,
+      averageTaxRate,
+      principal: amountInclTax,
+    }
   }
 }

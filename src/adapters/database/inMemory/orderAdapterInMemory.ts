@@ -1,5 +1,6 @@
 import { OrderData } from 'entities/order'
-import { OrderGateway1 } from 'gateways/orderGateway'
+
+import { OrderGateway1 } from '~/src/core/gateways/orderGatewayX'
 
 import { inMemory } from '../../../../mock/inMemory'
 
@@ -17,7 +18,7 @@ The reason we use an IIFE rather than simply assigning the return objec to gatew
 is accessible by these methods, but not from outside. */
 
 export const orderAdapterInMemory1: OrderGateway1 = (() => {
-  const orders: OrderData[] = [...inMemory.orders]
+  const orders: OrderData[] = [...inMemory.orderDatas]
   return {
     getAll: () => Promise.resolve(orders),
     getById: (orderId: string) =>
@@ -31,7 +32,7 @@ also have access to the private variable (orders) because they are
 parent function has closed). */
 
 export const orderAdapterInMemory2 = () => {
-  const orders: OrderData[] = [...inMemory.orders]
+  const orders: OrderData[] = [...inMemory.orderDatas]
   return {
     getAll: () => orders,
     getById: (orderId: string) => orders.find((order) => order.id === orderId),

@@ -10,11 +10,10 @@ export interface OrderData {
   principal?: number // principal is the amount including tax.
 }
 
-export interface OrderWithItems extends OrderData {
+export interface Order extends OrderData {
   items: Item[]
   amountExclTax: number
   amountInclTax: number
   taxAmount: number
-  princial: number
   averageTaxRate: number
 }

@@ -1,7 +1,7 @@
 import { ItemData } from 'entities/item'
 import { inMemory } from 'mock/inMemory'
 
-import { ItemAdapter } from '../interfaces'
+import { ItemAdapter } from '../adapterInterfaces'
 
 // Both dbs (in memory and json server) work both with both gateways (1 and 2)
 
@@ -16,12 +16,16 @@ By using an IIFE, the value assigned to gateway is the return value of the IIFE,
 The reason we use an IIFE rather than simply assigning the return object to the gateway is to have a private variable (items) that
 is accessible by these methods, but not from outside. */
 
-export const itemAdapterInMemory1: ItemAdapter = (() => {
-  const items: ItemData[] = [...inMemory.items]
+export const ItemAdapterInMemory1: ItemAdapter = (() => {
+  const items: ItemData[] = [...inMemory.itemDatas]
   return {
     getAll: () => Promise.resolve(items),
     getById: (itemId: string) =>
       Promise.resolve(items.find((item) => item.id === itemId)),
+    getByOrderId: (orderId: string) => {
+      const orderItems = items.filter((item) => item.orderId === orderId)
+      return Promise.resolve(orderItems)
+    },
   }
 })()
 
@@ -31,11 +35,15 @@ also have access to the private variable (items) because they are
 parent function has closed). */
 
 export const itemAdapterInMemory2 = (): ItemAdapter => {
-  const items: ItemData[] = [...inMemory.items]
+  const items: ItemData[] = [...inMemory.itemDatas]
   return {
     getAll: () => Promise.resolve(items),
     getById: (itemId: string) =>
       Promise.resolve(items.find((item) => item.id === itemId)),
+    getByOrderId: (orderId: string) => {
+      const orderItems = items.filter((item) => item.orderId === orderId)
+      return Promise.resolve(orderItems)
+    },
   }
 }
 

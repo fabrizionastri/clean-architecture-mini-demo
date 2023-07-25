@@ -1,7 +1,9 @@
-// src/adapters/jsonServerGenericAdapter.ts
 import axios from 'axios'
 
-export const genericAdapter = <T>(baseUrl: string, resource: string) => {
+export const genericAdapterJsonServer = <T>(
+  baseUrl: string,
+  resource: string
+) => {
   const endpoint = `${baseUrl}/${resource}`
   return {
     getAll: async (): Promise<T[]> => {

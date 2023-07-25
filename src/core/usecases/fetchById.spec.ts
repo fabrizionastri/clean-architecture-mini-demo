@@ -2,7 +2,7 @@ import { inMemory } from 'mock/inMemory'
 
 import { scenarios } from './scenarios'
 
-const orders = inMemory.orders
+const orders = inMemory.orderDatas
 
 describe('Usecase: fetchOrderById  → for each order gateway & adapter 1', () => {
   scenarios.forEach(({ scenario, fetch, adapter }) => {

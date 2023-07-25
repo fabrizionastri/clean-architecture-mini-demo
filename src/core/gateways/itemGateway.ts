@@ -1,13 +1,17 @@
 import { Item, ItemData } from 'entities/item'
 import { round6 } from 'utils/round'
 
-import { ItemAdapter } from '~/src/adapters/database/interfaces'
+import { ItemAdapter } from '~/src/adapters/database/adapterInterfaces'
 
-export const itemGateway = (adapter: ItemAdapter) => {
+import { ItemGateway } from './gatewayInterfaces'
+
+export const itemGateway = (adapter: ItemAdapter): ItemGateway => {
   return {
     getAllData: (): Promise<ItemData[]> => adapter.getAll(),
     getByIdData: (itemId: string): Promise<ItemData | undefined> =>
       adapter.getById(itemId),
+    getByOrderIdData: (orderId: string): Promise<ItemData[]> =>
+      adapter.getByOrderId(orderId),
     getAll: (): Promise<Item[]> =>
       adapter.getAll().then((items: ItemData[]) => items.map(calculateItem)),
     getById: (itemId: string): Promise<Item | undefined> =>
@@ -17,6 +21,10 @@ export const itemGateway = (adapter: ItemAdapter) => {
         }
         return undefined
       }),
+    getByOrderId: (orderId: string): Promise<Item[]> =>
+      adapter
+        .getByOrderId(orderId)
+        .then((items: ItemData[]) => items.map(calculateItem)),
   }
 }
 

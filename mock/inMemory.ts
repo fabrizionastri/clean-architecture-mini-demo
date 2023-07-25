@@ -3,10 +3,10 @@ import { ItemData } from '~/src/core/entities/item'
 import { OrderData } from '../src/core/entities/order'
 
 export const inMemory: {
-  orders: OrderData[]
-  items: ItemData[]
+  orderDatas: OrderData[]
+  itemDatas: ItemData[]
 } = {
-  orders: [
+  orderDatas: [
     {
       id: 'order0',
       clientId: 'accountX',
@@ -32,7 +32,7 @@ export const inMemory: {
       name: 'Chaussures',
     },
   ],
-  items: [
+  itemDatas: [
     {
       id: 'item0',
       orderId: 'order1',
