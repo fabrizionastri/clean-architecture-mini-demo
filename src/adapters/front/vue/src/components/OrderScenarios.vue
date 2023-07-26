@@ -7,7 +7,8 @@
   </ul>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue'
 import { OrderData, scenarios } from '../../../../../core/coreIndex'
 import OrderDetail from './OrderDetail.vue'
 
@@ -16,19 +17,12 @@ interface Result {
   order: OrderData
 }
 
-export default {
-  name: 'OrderScenarios',
-  data: () => ({
-    results: [] as Result[],
-  }),
-  components: {
-    OrderDetail,
-  },
-  async mounted() {
-    for (const scenario of scenarios) {
-      const order = await scenario.fetch(scenario.adapter)('order1')
-      this.results.push({ scenario: scenario.scenario, order })
-    }
-  },
-}
+const results = ref<Result[]>([])
+
+onMounted(async () => {
+  for (const scenario of scenarios) {
+    const order = await scenario.fetch(scenario.adapter)('order1')
+    results.value.push({ scenario: scenario.scenario, order })
+  }
+})
 </script>

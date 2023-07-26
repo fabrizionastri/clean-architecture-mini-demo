@@ -8,18 +8,15 @@
   </ul>
 </template>
 
-<script lang="ts">
-export default {
-  name: 'OrderDetail',
-  props: {
-    order: {
-      type: Object,
-      required: true,
-    },
-    scenario: {
-      type: String,
-      required: true,
-    },
+<script lang="ts" setup>
+defineProps({
+  order: {
+    type: Object,
+    required: true,
   },
-}
+  scenario: {
+    type: String,
+    required: true,
+  },
+})
 </script>
