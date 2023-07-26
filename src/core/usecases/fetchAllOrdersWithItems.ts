@@ -1,5 +1,5 @@
 import { itemAdapterInMemory2 as itemAdapter } from 'adapters/database/inMemory/itemAdapterInMemory'
-import { orderAdapterInMemory2 as orderAdapter } from 'adapters/database/inMemory/orderAdapterInMemory'
+import { orderAdapterInMemory2 as orderAdapter } from '~/src/adapters/database/inMemory/orderAdapterInMemoryForAccountId'
 import { Order } from 'entities/order'
 import { orderGateway } from 'gateways/orderGateway'
 

@@ -2,7 +2,7 @@ import { inMemory } from '../../../mock/inMemory'
 import {
   orderAdapterInMemory1,
   orderAdapterInMemory2,
-} from './inMemory/orderAdapterInMemory'
+} from './inMemory/orderAdapterInMemoryForAccountId'
 import {
   orderAdapterJsonServer1,
   orderAdapterJsonServer2,

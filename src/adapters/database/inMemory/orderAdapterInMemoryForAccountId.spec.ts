@@ -1,0 +1,50 @@
+import { orderDatas } from '~/mock/inMemory'
+
+import { orderAdapterInMemoryForAccountId } from './orderAdapterInMemoryForAccountId'
+
+let adapter: any
+
+describe('orderAdapterInMemoryForAccountId', () => {
+  describe('for existing account', () => {
+    beforeAll(() => {
+      adapter = orderAdapterInMemoryForAccountId('account0')
+    })
+    describe('getById', () => {
+      it('should return an order for exiting order id', () => {
+        const result = adapter.getById('order0')
+        expect(result).toEqual(orderDatas[0])
+      })
+      it('should return undefined for inexistant id', async () => {
+        const result = adapter.getById('inexistant')
+        expect(result).toEqual(undefined)
+      })
+      it('should return undefined for order id from unrelated account', async () => {
+        const result = adapter.getById('order3')
+        expect(result).toEqual(undefined)
+      })
+    })
+    describe('getAll', () => {
+      it('return all orders for this account', () => {
+        const result = adapter.getAll()
+        expect(result).toEqual(orderDatas.slice(0, 2))
+      })
+    })
+  })
+  describe('for a non existing account', () => {
+    beforeAll(() => {
+      adapter = orderAdapterInMemoryForAccountId('account99')
+    })
+    describe('getById', () => {
+      it('should return undefined for exsiting order id', () => {
+        const result = adapter.getById('order0')
+        expect(result).toEqual(undefined)
+      })
+    })
+    describe('getAll', () => {
+      it('return empty array', () => {
+        const result = adapter.getAll()
+        expect(result).toEqual([])
+      })
+    })
+  })
+})

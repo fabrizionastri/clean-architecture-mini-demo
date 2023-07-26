@@ -1,18 +1,46 @@
-import { inMemory } from 'mock/inMemory'
+import { itemDatas } from 'mock/inMemory'
 
 import { itemAdapterInMemory } from './itemAdapterInMemory'
 
-describe('Items adapters → for each orderAdapter', () => {
+describe('itemAdapterInMemory', () => {
   const adapter = itemAdapterInMemory()
+  describe('getById', () => {
+    it('should return undefined when item id not found', () => {
+      const item = adapter.getById('nonexistentId')
+      expect(item).toBeUndefined()
+    })
 
-  it.only('should return item by id', () => {
-    const firstItem = inMemory.itemDatas[0]
-    const item = adapter.getById(firstItem.id)
-    expect(item).toEqual(firstItem)
+    it('should return one item for existing item id', () => {
+      const item = adapter.getById('item0')
+      expect(item).toEqual(itemDatas[0])
+    })
+  })
+  describe('getByOrderId', () => {
+    it('should return an array of items for existing order id', () => {
+      const items = adapter.getByOrderId('order0')
+      expect(items).toEqual([itemDatas[0], itemDatas[1]])
+    })
+
+    it('should return an empty array for existing empty order', () => {
+      const items = adapter.getByOrderId('order3')
+      expect(items).toEqual([])
+    })
+
+    it('should return an empty array for non existing  order', () => {
+      const items = adapter.getByOrderId('order99')
+      expect(items).toEqual([])
+    })
   })
 
-  it.only('should return undefined when id not found', () => {
-    const item = adapter.getById('nonexistentId')
-    expect(item).toBeUndefined()
+  describe('getByOrderIds', () => {
+    it('should return an array for array of existing orders', () => {
+      const items = adapter.getByOrderIds(['order0', 'order1'])
+      expect(items).toEqual(items.slice(0, 4))
+    })
+
+    it('should return an empty array for non existing orders', () => {
+      const items = adapter.getByOrderId('order99')
+      expect(items).toEqual([])
+    })
   })
 })

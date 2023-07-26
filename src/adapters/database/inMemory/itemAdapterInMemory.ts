@@ -1,13 +1,13 @@
 import { ItemData } from 'entities/item'
-import { inMemory } from 'mock/inMemory'
+import { itemDatas } from 'mock/inMemory'
 
 export const itemAdapterInMemory = () => {
-  const items: ItemData[] = [...inMemory.itemDatas]
+  const items: ItemData[] = [...itemDatas]
   return {
     getById: (itemId: string) => items.find((item) => item.id === itemId),
     getByOrderId: (orderId: string) =>
       items.filter((item) => item.orderId === orderId),
-    getManyByOrderId: (orderIds: string[]) =>
+    getByOrderIds: (orderIds: string[]) =>
       items.filter((item) => orderIds.includes(item.orderId)),
   }
 }
