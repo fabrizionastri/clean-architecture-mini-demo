@@ -5,7 +5,7 @@
     </h1>
     <a ref="/">Vue App</a>
     <a ref="/order">Orders</a>
-    <a ref="/">OrderDatas</a>
+    <a ref="/order-data">Order datas</a>
     <a ref="/">Items</a>
     <a ref="/">ItemDatas</a>
   </nav>

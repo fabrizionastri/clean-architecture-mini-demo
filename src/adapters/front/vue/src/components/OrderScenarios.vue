@@ -10,7 +10,7 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
 import { OrderData, scenarios } from '../../../../../core/coreIndex'
-import OrderDetail from './OrderDetail.vue'
+import OrderDetail from './OrderDetails.vue'
 
 interface Result {
   scenario: string

@@ -3,17 +3,17 @@ import { Item, ItemData } from 'entities/item'
 import { Order, OrderData } from '../coreIndex'
 
 export interface ItemGateway {
-  getAllData: () => Promise<ItemData[]>
-  getByIdData: (itemId: string) => Promise<ItemData | undefined>
-  getByOrderIdData: (orderId: string) => Promise<ItemData[]>
-  getAll: () => Promise<Item[]>
-  getById: (itemId: string) => Promise<Item | undefined>
-  getByOrderId: (orderId: string) => Promise<Item[]>
+  getAllData: () => ItemData[]
+  getByIdData: (itemId: string) => ItemData | undefined
+  getByOrderIdData: (orderId: string) => ItemData[]
+  getAll: () => Item[]
+  getById: (itemId: string) => Item | undefined
+  getByOrderId: (orderId: string) => Item[]
 }
 
 export interface OrderGateway {
-  getAllData: () => Promise<OrderData[]>
-  getByIdData: (orderId: string) => Promise<OrderData | undefined>
-  getAll: () => Promise<Order[]>
-  getById: (orderId: string) => Promise<Order | undefined>
+  getAllData: () => OrderData[]
+  getByIdData: (orderId: string) => OrderData | undefined
+  getAll: () => Order[]
+  getById: (orderId: string) => Order | undefined
 }

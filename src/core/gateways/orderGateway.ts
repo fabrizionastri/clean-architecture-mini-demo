@@ -17,26 +17,21 @@ export const orderGateway = (
   const itemGtw = itemGateway(itemAdapter)
 
   return {
-    getAllData: (): Promise<OrderData[]> => orderAdapter.getAll(),
-    getByIdData: (orderId: string): Promise<OrderData | undefined> =>
+    getAllData: (): OrderData[] => orderAdapter.getAll(),
+    getByIdData: (orderId: string): OrderData | undefined =>
       orderAdapter.getById(orderId),
-    getAll: (): Promise<Order[]> =>
-      orderAdapter
-        .getAll()
-        .then((orders: OrderData[]) =>
-          Promise.all(orders.map(addItemsAndCalculate))
-        ),
-    getById: (orderId: string): Promise<Order | undefined> =>
-      orderAdapter.getById(orderId).then((order: OrderData | undefined) => {
-        if (order) {
-          return addItemsAndCalculate(order)
-        }
-        return undefined
-      }),
+    getAll: (): Order[] => orderAdapter.getAll().map(addItemsAndCalculate),
+    getById: (orderId: string): Order | undefined => {
+      const order = orderAdapter.getById(orderId)
+      if (order) {
+        return addItemsAndCalculate(order)
+      }
+      return undefined
+    },
   }
 
-  async function addItemsAndCalculate(order: OrderData): Promise<Order> {
-    const items: Item[] = await itemGtw.getByOrderId(order.id)
+  function addItemsAndCalculate(order: OrderData): Order {
+    const items: Item[] = itemGtw.getByOrderId(order.id)
 
     const amountExclTax = round6(
       items.reduce((sum, item) => sum + item.amountExclTax, 0)

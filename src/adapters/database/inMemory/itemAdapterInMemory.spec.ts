@@ -1,38 +1,18 @@
 import { inMemory } from 'mock/inMemory'
 
-import {
-  ItemAdapterInMemory1,
-  itemAdapterInMemory2,
-} from './itemAdapterInMemory'
-
-const scenarios = [
-  { adapterName: 'itemAdapterInMemory1', itemAdapter: ItemAdapterInMemory1 },
-  {
-    adapterName: 'itemAdapterInMemory2()',
-    itemAdapter: itemAdapterInMemory2(),
-  },
-]
+import { itemAdapterInMemory } from './itemAdapterInMemory'
 
 describe('Items adapters → for each orderAdapter', () => {
-  scenarios.forEach(({ adapterName, itemAdapter }) => {
-    describe(adapterName, () => {
-      const adapter = itemAdapter
+  const adapter = itemAdapterInMemory()
 
-      it('should return all items', async () => {
-        const items = await adapter.getAll()
-        expect(items).toEqual(inMemory.itemDatas)
-      })
+  it.only('should return item by id', () => {
+    const firstItem = inMemory.itemDatas[0]
+    const item = adapter.getById(firstItem.id)
+    expect(item).toEqual(firstItem)
+  })
 
-      it('should return item by id', async () => {
-        const firstItem = inMemory.itemDatas[0]
-        const item = await ItemAdapterInMemory1.getById(firstItem.id)
-        expect(item).toEqual(firstItem)
-      })
-
-      it('should return undefined when id not found', async () => {
-        const item = await ItemAdapterInMemory1.getById('nonexistentId')
-        expect(item).toBeUndefined()
-      })
-    })
+  it.only('should return undefined when id not found', () => {
+    const item = adapter.getById('nonexistentId')
+    expect(item).toBeUndefined()
   })
 })

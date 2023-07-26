@@ -1,12 +1,10 @@
 import { OrderData } from 'entities/order'
 
-import { OrderGateway1 } from '~/src/core/gateways/orderGatewayX'
-
 import { inMemory } from '../../../../mock/inMemory'
+import { OrderAdapter } from '../adapterInterfaces'
 
-// Both dbs (in memory and json server) work both with both gateways (1 and 2)
-
-/* Adapter 1 is object containing methods, following the gateway 1 interface. 
+/* Both dbs (in memory and json server) work both with both gateways (1 and 2)
+Adapter 1 is object containing methods, following the gateway 1 interface. 
 The value of adapter 1 is equal to the return value of an IIFE.
 An IIFF (Immediately Invoked Function Expression) is a function that is invoked immediately upon declaration.
 An IIFF is written as follows:
@@ -17,7 +15,7 @@ By using an IIFE, the value assigned to gateway 1 is the return value of the IIF
 The reason we use an IIFE rather than simply assigning the return objec to gateway 1 is to have a private variable (orders) that
 is accessible by these methods, but not from outside. */
 
-export const orderAdapterInMemory1: OrderGateway1 = (() => {
+export const orderAdapterInMemory1 = (() => {
   const orders: OrderData[] = [...inMemory.orderDatas]
   return {
     getAll: () => Promise.resolve(orders),
@@ -31,11 +29,17 @@ also have access to the private variable (orders) because they are
 "closures" (functions that have access to the parent scope, even after the
 parent function has closed). */
 
-export const orderAdapterInMemory2 = () => {
+export const orderAdapterInMemory2 = (accountId: string): OrderAdapter => {
   const orders: OrderData[] = [...inMemory.orderDatas]
+  const getAll = (): OrderData[] =>
+    orders.filter(
+      (order) => order.clientId === accountId || order.supplierId === accountId
+    )
+  const getById = (orderId: string): OrderData | undefined =>
+    orders.find((order) => order.id === orderId)
   return {
-    getAll: () => orders,
-    getById: (orderId: string) => orders.find((order) => order.id === orderId),
+    getAll,
+    getById,
   }
 }
 

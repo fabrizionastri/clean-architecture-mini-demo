@@ -57,7 +57,7 @@ export const items: Item[] = [
 
 export const orderDatas: OrderData[] = [
   { id: '0', clientId: '123', supplierId: '456', name: 'Test Order 1' },
-  { id: '1', clientId: '789', supplierId: '012', name: 'Test Order 2' },
+  { id: '1', clientId: '789', supplierId: '123', name: 'Test Order 2' },
 ]
 export const orders: Order[] = [
   {
@@ -75,7 +75,7 @@ export const orders: Order[] = [
   {
     id: '1',
     clientId: '789',
-    supplierId: '012',
+    supplierId: '123',
     name: 'Test Order 2',
     items: [items[2]],
     amountExclTax: 90,
