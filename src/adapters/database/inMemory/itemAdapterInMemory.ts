@@ -1,7 +1,9 @@
 import { ItemData } from 'entities/item'
 import { itemDatas } from 'mock/inMemory'
 
-export const itemAdapterInMemory = () => {
+import { ItemAdapter } from '../adapterInterfaces'
+
+export const createItemAdapterInMemory = (): ItemAdapter => {
   const items: ItemData[] = [...itemDatas]
   return {
     getById: (itemId: string) => items.find((item) => item.id === itemId),

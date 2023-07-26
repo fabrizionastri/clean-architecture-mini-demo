@@ -1,6 +1,5 @@
 import { Item, ItemData } from 'entities/item'
-
-import { Order, OrderData } from '../coreIndex'
+import { Order, OrderData } from 'entities/order'
 
 export interface ItemGateway {
   getAllData: () => ItemData[]

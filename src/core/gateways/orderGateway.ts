@@ -1,20 +1,16 @@
+import { ItemAdapter, OrderAdapter } from 'adapters/database/adapterInterfaces'
 import { Item } from 'entities/item'
 import { Order, OrderData } from 'entities/order'
-import { itemGateway } from 'gateways/itemGateway'
+import { createItemGateway } from 'gateways/itemGateway'
 import { round6 } from 'utils/round'
-
-import {
-  ItemAdapter,
-  OrderAdapter,
-} from '~/src/adapters/database/adapterInterfaces'
 
 import { OrderGateway } from './gatewayInterfaces'
 
-export const orderGateway = (
+export const createOrderGateway = (
   orderAdapter: OrderAdapter,
   itemAdapter: ItemAdapter
 ): OrderGateway => {
-  const itemGtw = itemGateway(itemAdapter)
+  const itemGtw = createItemGateway(itemAdapter)
 
   return {
     getAllData: (): OrderData[] => orderAdapter.getAll(),

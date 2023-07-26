@@ -2,8 +2,6 @@
 import axios, { AxiosResponse, Method } from 'axios'
 import { OrderData } from 'entities/order'
 
-import { OrderGateway1 } from '~/src/core/gateways/orderGatewayX'
-
 export const myAxios = axios.create({
   baseURL: 'http://localhost:3057/',
   timeout: 1000,
@@ -35,7 +33,7 @@ export const api = {
 /* Adapter 1 is a object with methods.
 As opposed to the in memory adapter, we don't need to use an IIFE here
 becase there are not private properties to refer to. */
-export const orderAdapterJsonServer1: OrderGateway1 = {
+export const orderAdapterJsonServer1 = {
   getAll: async (): Promise<OrderData[] | undefined> => {
     const result = await api.get<OrderData[]>('/orders')
     return result

@@ -1,4 +1,4 @@
-import { GenericAdapter } from './genericAdapterInMemory'
+import { createGenericAdapter } from './genericAdapterInMemory'
 
 interface MockData {
   id: string
@@ -12,7 +12,7 @@ const mockData: MockData[] = [
 ]
 
 describe('Generic Adapter', () => {
-  const adapter = GenericAdapter<MockData>(mockData)
+  const adapter = createGenericAdapter<MockData>(mockData)
   it('should return all items', async () => {
     const items = await adapter.getAll()
     expect(items).toEqual(mockData)

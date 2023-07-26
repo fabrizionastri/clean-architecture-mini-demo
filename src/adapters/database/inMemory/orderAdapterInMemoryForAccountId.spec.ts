@@ -1,13 +1,13 @@
 import { orderDatas } from '~/mock/inMemory'
 
-import { orderAdapterInMemoryForAccountId } from './orderAdapterInMemoryForAccountId'
+import { createOrderAdapterInMemoryForAccountId } from './orderAdapterInMemoryForAccountId'
 
 let adapter: any
 
 describe('orderAdapterInMemoryForAccountId', () => {
   describe('for existing account', () => {
     beforeAll(() => {
-      adapter = orderAdapterInMemoryForAccountId('account0')
+      adapter = createOrderAdapterInMemoryForAccountId('account0')
     })
     describe('getById', () => {
       it('should return an order for exiting order id', () => {
@@ -32,7 +32,7 @@ describe('orderAdapterInMemoryForAccountId', () => {
   })
   describe('for a non existing account', () => {
     beforeAll(() => {
-      adapter = orderAdapterInMemoryForAccountId('account99')
+      adapter = createOrderAdapterInMemoryForAccountId('account99')
     })
     describe('getById', () => {
       it('should return undefined for exsiting order id', () => {

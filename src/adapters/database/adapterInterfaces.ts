@@ -8,9 +8,9 @@ export interface GenericAdapter<T> {
 }
 
 export interface ItemAdapter {
-  getAll: () => ItemData[]
   getByOrderId: (orderId: string) => ItemData[]
   getById: (id: string) => ItemData | undefined
+  getByOrderIds: (orderIds: string[]) => ItemData[]
 }
 
 export interface OrderAdapter {

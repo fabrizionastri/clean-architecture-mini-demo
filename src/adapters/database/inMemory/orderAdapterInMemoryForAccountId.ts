@@ -1,8 +1,11 @@
 import { OrderData } from 'entities/order'
 
 import { inMemory } from '../../../../mock/inMemory'
+import { OrderAdapter } from '../adapterInterfaces'
 
-export const orderAdapterInMemoryForAccountId = (accountId: string) => {
+export const createOrderAdapterInMemoryForAccountId = (
+  accountId: string
+): OrderAdapter => {
   const orders: OrderData[] = [...inMemory.orderDatas]
   const getAll = (): OrderData[] =>
     orders.filter(
@@ -13,6 +16,5 @@ export const orderAdapterInMemoryForAccountId = (accountId: string) => {
   return {
     getAll,
     getById,
-    accountId,
   }
 }

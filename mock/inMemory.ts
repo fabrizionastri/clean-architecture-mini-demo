@@ -10,7 +10,7 @@ export const itemDatas: ItemData[] = [
     quantity: 10,
     unit: 'unit',
     unitPriceExclTax: 10,
-    taxRate: 20,
+    taxRate: 0.2,
   },
   {
     id: 'item1',
@@ -19,7 +19,7 @@ export const itemDatas: ItemData[] = [
     quantity: 11,
     unit: 'unit',
     unitPriceExclTax: 11,
-    taxRate: 20,
+    taxRate: 0.2,
   },
   {
     id: 'item2',
@@ -28,7 +28,7 @@ export const itemDatas: ItemData[] = [
     quantity: 12,
     unit: 'pair',
     unitPriceExclTax: 5,
-    taxRate: 20,
+    taxRate: 0.2,
   },
   {
     id: 'item3',
@@ -37,7 +37,7 @@ export const itemDatas: ItemData[] = [
     quantity: 13,
     unit: 'pair',
     unitPriceExclTax: 6,
-    taxRate: 20,
+    taxRate: 0.2,
   },
   {
     id: 'item4',
@@ -46,7 +46,7 @@ export const itemDatas: ItemData[] = [
     quantity: 14,
     unit: 'pair',
     unitPriceExclTax: 100,
-    taxRate: 10,
+    taxRate: 0.1,
   },
   {
     id: 'item5',
@@ -55,7 +55,7 @@ export const itemDatas: ItemData[] = [
     quantity: 15,
     unit: 'pair',
     unitPriceExclTax: 120,
-    taxRate: 20,
+    taxRate: 0.2,
   },
 ]
 
@@ -109,11 +109,11 @@ export const orderDatas: OrderData[] = [
     id: 'order0',
     clientId: 'account0',
     supplierId: 'account1',
-    name: '',
+    name: 'T blues & rouges',
   },
   {
     id: 'order1',
-    clientId: 'account3',
+    clientId: 'account2',
     supplierId: 'account0',
     name: '21 T-shirts (bleus + rouges)',
   },
@@ -138,7 +138,8 @@ export const orders: Order[] = [
     amountExclTax: 221,
     taxAmount: 44.2,
     amountInclTax: 265.2,
-    averageTaxRate: 20,
+    averageTaxRate: 0.2,
+    principal: 265.2,
   },
   {
     ...orderDatas[1],
@@ -146,7 +147,8 @@ export const orders: Order[] = [
     amountExclTax: 138,
     taxAmount: 27.6,
     amountInclTax: 165.6,
-    averageTaxRate: 20,
+    averageTaxRate: 0.2,
+    principal: 165.6,
   },
   {
     ...orderDatas[2],
@@ -154,7 +156,8 @@ export const orders: Order[] = [
     amountExclTax: 3200,
     taxAmount: 500,
     amountInclTax: 3700,
-    averageTaxRate: 15,
+    averageTaxRate: 0.15,
+    principal: 3700,
   },
   {
     ...orderDatas[3],
@@ -162,7 +165,8 @@ export const orders: Order[] = [
     amountExclTax: 0,
     taxAmount: 0,
     amountInclTax: 0,
-    averageTaxRate: 0,
+    averageTaxRate: 0.0,
+    principal: 0,
   },
 ]
 

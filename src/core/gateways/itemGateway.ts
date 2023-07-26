@@ -3,32 +3,21 @@ import { round6 } from 'utils/round'
 
 import { ItemAdapter } from '~/src/adapters/database/adapterInterfaces'
 
-import { ItemGateway } from './gatewayInterfaces'
-
-export const itemGateway = (adapter: ItemAdapter): ItemGateway => {
+export const createItemGateway = (adapter: ItemAdapter) => {
   return {
-    getAllData: (): Promise<ItemData[]> => adapter.getAll(),
-    getByIdData: (itemId: string): Promise<ItemData | undefined> =>
+    getByIdData: (itemId: string): ItemData | undefined =>
       adapter.getById(itemId),
-    getByOrderIdData: (orderId: string): Promise<ItemData[]> =>
+    getByOrderIdData: (orderId: string): ItemData[] =>
       adapter.getByOrderId(orderId),
-    getAll: (): Promise<Item[]> =>
-      adapter.getAll().then((items: ItemData[]) => items.map(calculateItem)),
-    getById: (itemId: string): Promise<Item | undefined> =>
-      adapter.getById(itemId).then((item: ItemData | undefined) => {
-        if (item) {
-          return calculateItem(item)
-        }
-        return undefined
-      }),
-    getByOrderId: (orderId: string): Promise<Item[]> =>
-      adapter
-        .getByOrderId(orderId)
-        .then((items: ItemData[]) => items.map(calculateItem)),
+    getById: (itemId: string): Item | undefined => {
+      const item = adapter.getById(itemId)
+      return item !== undefined ? calculateItem(item) : undefined
+    },
+    getByOrderId: (orderId: string): Item[] =>
+      adapter.getByOrderId(orderId).map(calculateItem),
   }
 }
 
-// QUESTION : should the new properties be values or methods?
 function calculateItem(item: ItemData): Item {
   return {
     ...item,

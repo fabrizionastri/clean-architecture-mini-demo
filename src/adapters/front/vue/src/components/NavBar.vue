@@ -3,6 +3,8 @@
     <h1 style="display: inline-block; margin-right: 50px; margin-bottom: 10px">
       Vue App
     </h1>
+    <input v-model="sharedState.selectedAccountId" />
+    <AccountSelector />
     <a ref="/">Vue App</a>
     <a ref="/order">Orders</a>
     <a ref="/order-data">Order datas</a>
@@ -11,6 +13,10 @@
   </nav>
 </template>
 
+<script lang="ts" setup>
+import AccountSelector from './AccountSelector.vue'
+import { sharedState } from '../sharedState.js'
+</script>
 <style scoped>
 nav {
   border-bottom: gray 1px solid;
@@ -23,5 +29,10 @@ a {
   text-decoration: none;
   color: blue;
   cursor: pointer;
+}
+input {
+  font-size: large;
+  margin: 3px 6px;
+  width: 150px;
 }
 </style>

@@ -1,15 +1,14 @@
 <template>
   <main>
     <NavBar />
-    <OrderScenarios />
+    <OrderList />
   </main>
 </template>
 
 <script lang="ts" setup>
-import OrderScenarios from './components/OrderScenarios.vue'
 import NavBar from './components/NavBar.vue'
+import OrderList from './components/OrderList.vue'
 </script>
-
 <style>
 body {
   font-family: Open-Sans, Helvetica, sans-serif;
