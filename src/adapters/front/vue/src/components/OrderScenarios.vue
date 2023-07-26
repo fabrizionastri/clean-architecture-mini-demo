@@ -1,5 +1,5 @@
 <template>
-  <h1>Vue Order Scenarios</h1>
+  <h2>Order Datas</h2>
   <ul>
     <li v-for="result in results">
       <OrderDetail :scenario="result.scenario" :order="result.order" />

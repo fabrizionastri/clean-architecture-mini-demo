@@ -1,18 +1,13 @@
 <template>
   <main>
+    <NavBar />
     <OrderScenarios />
   </main>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import OrderScenarios from './components/OrderScenarios.vue'
-
-export default defineComponent({
-  components: {
-    OrderScenarios,
-  },
-})
+import NavBar from './components/NavBar.vue'
 </script>
 
 <style>
