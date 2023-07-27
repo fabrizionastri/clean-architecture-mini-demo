@@ -1,10 +1,10 @@
 import { orderDatas } from '~/mock/inMemory'
 
-import { createOrderAdapterInMemoryForAccountId } from './orderAdapterInMemoryForAccountId'
+import { createOrderAdapterInMemoryForAccountId } from './createOrderAdapterInMemoryForAccountId'
 
 let adapter: any
 
-describe('orderAdapterInMemoryForAccountId', () => {
+describe('createOrderAdapterInMemoryForAccountId', () => {
   describe('for existing account', () => {
     beforeAll(() => {
       adapter = createOrderAdapterInMemoryForAccountId('account0')

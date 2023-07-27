@@ -2,6 +2,8 @@
 import axios, { AxiosResponse, Method } from 'axios'
 import { ItemData } from 'entities/item'
 
+import { ItemAdapter } from '../adapterInterfaces'
+
 export const myAxios = axios.create({
   baseURL: 'http://localhost:3057/',
   timeout: 1000,
@@ -30,29 +32,22 @@ export const api = {
   put: handleRequest('put'),
 }
 
-/* Adapter 1 is a object with methods.
-As opposed to the in memory adapter, we don't need to use an IIFE here
-becase there are not private properties to refer to. */
-export const itemAdapterJsonServer1 = {
-  getAll: async (): Promise<ItemData[] | undefined> => {
-    const result = await api.get<ItemData[]>('/items')
-    return result
-  },
-  getById: async (id: string): Promise<ItemData | undefined> => {
-    const result = await api.get<ItemData>(`/items/${id}`)
-    return result
-  },
-}
-
-// Adapter 2 is a function that returns a object with methods
-export const itemAdapterJsonServer2 = () => {
+export const createItemAdapterJsonServer = (): ItemAdapter => {
   return {
-    getAll: async (): Promise<ItemData[] | undefined> => {
-      const result = await api.get<ItemData[]>('/items')
-      return result
-    },
     getById: async (id: string): Promise<ItemData | undefined> => {
       const result = await api.get<ItemData>(`/items/${id}`)
+      return result
+    },
+    getByOrderId: async (orderId: string): Promise<ItemData[] | undefined> => {
+      const result = await api.get<ItemData[]>(`/items?orderId=${orderId}`)
+      return result
+    },
+    getByOrderIds: async (
+      orderIds: string[]
+    ): Promise<ItemData[] | undefined> => {
+      const result = await api.get<ItemData[]>(
+        `/items?orderId=${orderIds.join(',')}`
+      )
       return result
     },
   }

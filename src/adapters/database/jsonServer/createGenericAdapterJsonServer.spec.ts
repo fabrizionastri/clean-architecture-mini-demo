@@ -1,7 +1,7 @@
 import axios from 'axios'
 import type { Mock } from 'vitest'
 
-import { genericAdapterJsonServer } from './genericAdapterJsonServer'
+import { genericAdapterJsonServer } from './createGenericAdapterJsonServer'
 
 const baseUrl = 'http://localhost:3057'
 const dummyData = [

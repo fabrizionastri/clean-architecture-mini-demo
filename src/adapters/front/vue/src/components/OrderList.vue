@@ -9,6 +9,7 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue'
+// QUESTION : how to get an absolute path to the core folder?
 import { getAllOrdersForAccountId } from '../../../../../core/usecases/getAllOrdersForAccountId.ts'
 import OrderDetails from './OrderDetails.vue'
 import { sharedState } from '../sharedState'

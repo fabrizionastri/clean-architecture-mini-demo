@@ -1,8 +1,8 @@
 import { itemDatas } from 'mock/inMemory'
 
-import { createItemAdapterInMemory } from './itemAdapterInMemory'
+import { createItemAdapterInMemory } from './createItemAdapterInMemory'
 
-describe('itemAdapterInMemory', () => {
+describe('createItemAdapterInMemory', () => {
   const adapter = createItemAdapterInMemory()
   describe('getById', () => {
     it('should return undefined when item id not found', () => {

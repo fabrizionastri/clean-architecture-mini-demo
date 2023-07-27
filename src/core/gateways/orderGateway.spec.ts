@@ -1,8 +1,8 @@
 import { createOrderGateway } from 'gateways/orderGateway'
 import { orderDatas, orders } from 'mock/inMemory'
 
-import { createItemAdapterInMemory } from '~/src/adapters/database/inMemory/itemAdapterInMemory'
-import { createOrderAdapterInMemoryForAccountId } from '~/src/adapters/database/inMemory/orderAdapterInMemoryForAccountId'
+import { createItemAdapterInMemory } from '~/src/adapters/database/inMemory/createItemAdapterInMemory'
+import { createOrderAdapterInMemoryForAccountId } from '~/src/adapters/database/inMemory/createOrderAdapterInMemoryForAccountId'
 
 import { OrderGateway } from './gatewayInterfaces'
 let orderAdapter: any

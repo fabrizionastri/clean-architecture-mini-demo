@@ -1,4 +1,4 @@
-import { createGenericAdapter } from './genericAdapterInMemory'
+import { createGenericAdapter } from './createGenericAdapterInMemory'
 
 interface MockData {
   id: string
