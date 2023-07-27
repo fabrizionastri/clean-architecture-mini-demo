@@ -6,9 +6,16 @@ import { createItemAdapterJsonServer } from './jsonServer/createItemAdapterJsonS
 import { createOrderAdapterJsonServer } from './jsonServer/createOrderAdapterJsonServer'
 
 config() // load variables from .env into process.env
-console.log('process.env.STORAGE_TYPE', process.env.STORAGE_TYPE)
-let createItemAdapter, createOrderAdapter
-console.log('process.env.STORAGE_TYPE', process.env.STORAGE_TYPE)
+
+console.log('process.env.STORAGE_TYPE before', process.env.STORAGE_TYPE)
+if (!process.env.STORAGE_TYPE) {
+  process.env.STORAGE_TYPE = 'inMemory'
+}
+console.log('process.env.STORAGE_TYPE after', process.env.STORAGE_TYPE)
+
+let createItemAdapter: any
+let createOrderAdapter: any
+
 switch (process.env.STORAGE_TYPE) {
   case 'inMemory':
     createItemAdapter = createItemAdapterInMemory

@@ -1,4 +1,4 @@
-import { Item, ItemData } from '~/src/core/entities/item'
+import { Item, ItemData } from 'core/entities/item'
 
 import { Order, OrderData } from '../src/core/entities/order'
 

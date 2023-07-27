@@ -7,10 +7,9 @@
   </ul>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-// QUESTION : how to get an absolute path to the core folder?
-import { getAllOrdersForAccountId } from '../../../../../core/usecases/getAllOrdersForAccountId.ts'
+import { fetchOrders } from '../composables/fetchOrders'
 import OrderDetails from './OrderDetails.vue'
 import { sharedState } from '../sharedState'
 
@@ -20,11 +19,9 @@ console.log('sharedState', sharedState.selectedAccountId)
 const accountId = sharedState.selectedAccountId
 console.log('accountId', accountId)
 
-const fetchOrders = async () => {
-  orders.value = await getAllOrdersForAccountId(sharedState.selectedAccountId)
-}
+orders.value = await fetchOrders(sharedState.selectedAccountId)
 
-onMounted(fetchOrders)
+onMounted(await fetchOrders('account0'))
 
 watch(() => sharedState.selectedAccountId, fetchOrders)
 </script>

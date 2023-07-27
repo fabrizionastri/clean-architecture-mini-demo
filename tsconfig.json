@@ -17,8 +17,7 @@
     "types": ["vitest/importMeta", "vitest/globals"],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./src/*"],
+      "src/*": ["./src/*", "./src"],
       "core/*": ["./src/core/*", "./src/core"],
       "entities/*": ["./src/core/entities/*", "./src/core/entities"],
       "usecases/*": ["./src/core/usecases/*", "./src/core/usecases"],

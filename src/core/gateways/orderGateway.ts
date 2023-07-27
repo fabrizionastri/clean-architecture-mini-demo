@@ -3,10 +3,12 @@ import { Order, OrderData } from 'entities/order'
 import { createItemGateway } from 'gateways/itemGateway'
 import { round6 } from 'utils/round'
 
+import { OrderGateway } from './gatewayInterfaces'
+
 export const createOrderGateway = (
   orderAdapter: OrderAdapter,
   itemAdapter: ItemAdapter
-) => {
+): OrderGateway => {
   const itemGateway = createItemGateway(itemAdapter)
   const addItemsAndCalculate = async (order: OrderData): Promise<Order> => {
     const items = (await itemGateway.getByOrderId(order.id)) ?? []

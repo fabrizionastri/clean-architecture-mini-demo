@@ -1,18 +1,24 @@
 import { createOrderGateway } from 'gateways/orderGateway'
 import { orderDatas, orders } from 'mock/inMemory'
 
-import { createItemAdapterInMemory } from '~/src/adapters/database/inMemory/createItemAdapterInMemory'
-import { createOrderAdapterInMemoryForAccountId } from '~/src/adapters/database/inMemory/createOrderAdapterInMemoryForAccountId'
+import {
+  ItemAdapter,
+  OrderAdapter,
+} from 'src/adapters/database/adapterInterfaces'
+import { createItemAdapter } from 'src/adapters/database/index'
+import { createOrderAdapter } from 'src/adapters/database/index'
 
-let orderAdapter: any
-let itemAdapter: any
-let orderGateway: any
+import { OrderGateway } from './gatewayInterfaces'
+
+let orderAdapter: OrderAdapter
+let itemAdapter: ItemAdapter
+let orderGateway: OrderGateway
 
 describe('orderGateway', () => {
   describe('for existing account', () => {
     beforeEach(() => {
-      orderAdapter = createOrderAdapterInMemoryForAccountId('account0')
-      itemAdapter = createItemAdapterInMemory()
+      orderAdapter = createOrderAdapter('account0')
+      itemAdapter = createItemAdapter()
       orderGateway = createOrderGateway(orderAdapter, itemAdapter)
     })
     it('getByIdData should return the order with raw data only', async () => {
@@ -35,8 +41,8 @@ describe('orderGateway', () => {
 
   describe('for inexisting account', () => {
     beforeEach(() => {
-      orderAdapter = createOrderAdapterInMemoryForAccountId('account99')
-      itemAdapter = createItemAdapterInMemory()
+      orderAdapter = createOrderAdapter('account99')
+      itemAdapter = createItemAdapter()
       orderGateway = createOrderGateway(orderAdapter, itemAdapter)
     })
     it('getByIdData should return undefined', async () => {

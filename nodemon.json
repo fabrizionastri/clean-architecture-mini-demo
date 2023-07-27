@@ -1,5 +1,10 @@
 {
-  "watch": ["src"],
-  "ext": "ts",
-  "exec": "ts-node src/adapters/front/express/express-server.ts"
+  "watch": [
+    "src/adapters/backend/hono/src/*"
+  ],
+  "ext": "ts, json",
+  "ignore": [
+    "src/**/*.spec.ts"
+  ],
+  "exec": "tsx src/adapters/backend/hono/src/index.ts"
 }
