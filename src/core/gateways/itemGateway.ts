@@ -4,17 +4,23 @@ import { round6 } from 'utils/round'
 import { ItemAdapter } from '~/src/adapters/database/adapterInterfaces'
 
 export const createItemGateway = (adapter: ItemAdapter) => {
+  const getByIdData = async (itemId: string): Promise<ItemData | undefined> =>
+    await adapter.getById(itemId)
+  const getByOrderIdData = async (
+    orderId: string
+  ): Promise<ItemData[] | undefined> => await adapter.getByOrderId(orderId)
+  const getById = async (itemId: string): Promise<Item | undefined> => {
+    const item = await adapter.getById(itemId)
+    return item !== undefined ? calculateItem(item) : undefined
+  }
+  const getByOrderId = async (orderId: string): Promise<Item[] | undefined> =>
+    ((await adapter.getByOrderId(orderId)) ?? []).map(calculateItem)
+
   return {
-    getByIdData: (itemId: string): ItemData | undefined =>
-      adapter.getById(itemId),
-    getByOrderIdData: (orderId: string): ItemData[] =>
-      adapter.getByOrderId(orderId),
-    getById: (itemId: string): Item | undefined => {
-      const item = adapter.getById(itemId)
-      return item !== undefined ? calculateItem(item) : undefined
-    },
-    getByOrderId: (orderId: string): Item[] =>
-      adapter.getByOrderId(orderId).map(calculateItem),
+    getByIdData,
+    getByOrderIdData,
+    getById,
+    getByOrderId,
   }
 }
 

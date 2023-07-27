@@ -7,7 +7,7 @@ describe('createItemAdapterJsonServer (real Axios)', () => {
     it('should return itemData for item id', async () => {
       const itemAdapter = createItemAdapterJsonServer()
       const itemData = await itemAdapter.getById('item2')
-      expect(itemData).toEqual(inMemory.itemDatas[2])
+      expect(itemData).toEqual(inMemory.item[2])
     })
     it('should return undefined for unknown item id', async () => {
       const itemAdapter = createItemAdapterJsonServer()
@@ -19,7 +19,7 @@ describe('createItemAdapterJsonServer (real Axios)', () => {
     it('should return itemDatas for order id', async () => {
       const itemAdapter = createItemAdapterJsonServer()
       const itemDatas = await itemAdapter.getByOrderId('order1')
-      expect(itemDatas).toEqual([inMemory.itemDatas[2], inMemory.itemDatas[3]])
+      expect(itemDatas).toEqual([inMemory.item[2], inMemory.item[3]])
     })
     it('should return [] for unknown order id', async () => {
       const itemAdapter = createItemAdapterJsonServer()
@@ -32,10 +32,10 @@ describe('createItemAdapterJsonServer (real Axios)', () => {
       const itemAdapter = createItemAdapterJsonServer()
       const itemDatas = await itemAdapter.getByOrderIds(['order1', 'order2'])
       expect(itemDatas).toEqual([
-        inMemory.itemDatas[2],
-        inMemory.itemDatas[3],
-        inMemory.itemDatas[4],
-        inMemory.itemDatas[5],
+        inMemory.item[2],
+        inMemory.item[3],
+        inMemory.item[4],
+        inMemory.item[5],
       ])
     })
     it('should return [] for unknown order ids', async () => {

@@ -171,6 +171,6 @@ export const orders: Order[] = [
 ]
 
 export const inMemory = {
-  orderDatas,
-  itemDatas,
+  order: orderDatas,
+  item: itemDatas,
 }

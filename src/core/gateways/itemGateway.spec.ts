@@ -12,29 +12,29 @@ describe('itemGateway', () => {
   })
 
   describe('getByIdData', () => {
-    it('should return the item with raw data only', () => {
-      const result = itemGateway.getByIdData('item0')
+    it('should return the item with raw data only', async () => {
+      const result = await itemGateway.getByIdData('item0')
       expect(result).toEqual(itemDatas[0])
     })
   })
 
   describe('getByOrderIdData', () => {
-    it('should return the items with raw data for the given order id', () => {
-      const result = itemGateway.getByOrderIdData('order0')
+    it('should return the items with raw data for the given order id', async () => {
+      const result = await itemGateway.getByOrderIdData('order0')
       expect(result).toEqual(itemDatas.slice(0, 2))
     })
   })
 
   describe('getById', () => {
-    it('should return the item with calculations', () => {
-      const result = itemGateway.getById('item0')
+    it('should return the item with calculations', async () => {
+      const result = await itemGateway.getById('item0')
       expect(result).toEqual(items[0])
     })
   })
 
   describe('getByOrderId', () => {
-    it('should return the items with calculations for the given order id', () => {
-      const result = itemGateway.getByOrderId('order0')
+    it('should return the items with calculations for the given order id', async () => {
+      const result = await itemGateway.getByOrderId('order0')
       expect(result).toEqual(items.slice(0, 2))
     })
   })

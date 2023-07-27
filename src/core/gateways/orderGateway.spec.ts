@@ -4,10 +4,9 @@ import { orderDatas, orders } from 'mock/inMemory'
 import { createItemAdapterInMemory } from '~/src/adapters/database/inMemory/createItemAdapterInMemory'
 import { createOrderAdapterInMemoryForAccountId } from '~/src/adapters/database/inMemory/createOrderAdapterInMemoryForAccountId'
 
-import { OrderGateway } from './gatewayInterfaces'
 let orderAdapter: any
 let itemAdapter: any
-let orderGateway: OrderGateway
+let orderGateway: any
 
 describe('orderGateway', () => {
   describe('for existing account', () => {
@@ -16,20 +15,20 @@ describe('orderGateway', () => {
       itemAdapter = createItemAdapterInMemory()
       orderGateway = createOrderGateway(orderAdapter, itemAdapter)
     })
-    it('getByIdData should return the order with raw data only', () => {
-      const result = orderGateway.getByIdData('order0')
+    it('getByIdData should return the order with raw data only', async () => {
+      const result = await orderGateway.getByIdData('order0')
       expect(result).toEqual(orderDatas[0])
     })
-    it('getAllData should return all orders with items and calculations', () => {
-      const result = orderGateway.getAllData()
+    it('getAllData should return all orders with items and calculations', async () => {
+      const result = await orderGateway.getAllData()
       expect(result).toEqual(orderDatas.slice(0, 2))
     })
-    it('getById should return the order with items and calculations', () => {
-      const result = orderGateway.getById('order0')
+    it('getById should return the order with items and calculations', async () => {
+      const result = await orderGateway.getById('order0')
       expect(result).toEqual(orders[0])
     })
-    it('getAll should return all orders for this account', () => {
-      const result = orderGateway.getAll()
+    it('getAll should return all orders for this account', async () => {
+      const result = await orderGateway.getAll()
       expect(result).toEqual(orders.slice(0, 2))
     })
   })
@@ -40,20 +39,20 @@ describe('orderGateway', () => {
       itemAdapter = createItemAdapterInMemory()
       orderGateway = createOrderGateway(orderAdapter, itemAdapter)
     })
-    it('getByIdData should return undefined', () => {
-      const result = orderGateway.getByIdData('order0')
+    it('getByIdData should return undefined', async () => {
+      const result = await orderGateway.getByIdData('order0')
       expect(result).toBeUndefined()
     })
-    it('getAllData should return []', () => {
-      const result = orderGateway.getAllData()
+    it('getAllData should return []', async () => {
+      const result = await orderGateway.getAllData()
       expect(result).toEqual([])
     })
-    it('getById should return undefined', () => {
-      const result = orderGateway.getById('order0')
+    it('getById should return undefined', async () => {
+      const result = await orderGateway.getById('order0')
       expect(result).toBeUndefined()
     })
-    it('getAll should return all []', () => {
-      const result = orderGateway.getAll()
+    it('getAll should return all []', async () => {
+      const result = await orderGateway.getAll()
       expect(result).toEqual([])
     })
   })

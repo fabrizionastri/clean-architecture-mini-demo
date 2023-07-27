@@ -38,13 +38,3 @@ defineProps({
   },
 })
 </script>
-
-<!-- Order contents
-
-    amountExclTax: 221,
-    taxAmount: 44.2,
-    amountInclTax: 265.2,
-    averageTaxRate: 0.2,
-    principal: 265.2,
-  
-  -->

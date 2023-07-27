@@ -1,33 +1,15 @@
 import { ItemAdapter, OrderAdapter } from 'adapters/database/adapterInterfaces'
-import { Item } from 'entities/item'
 import { Order, OrderData } from 'entities/order'
 import { createItemGateway } from 'gateways/itemGateway'
 import { round6 } from 'utils/round'
 
-import { OrderGateway } from './gatewayInterfaces'
-
 export const createOrderGateway = (
   orderAdapter: OrderAdapter,
   itemAdapter: ItemAdapter
-): OrderGateway => {
-  const itemGtw = createItemGateway(itemAdapter)
-
-  return {
-    getAllData: (): OrderData[] => orderAdapter.getAll(),
-    getByIdData: (orderId: string): OrderData | undefined =>
-      orderAdapter.getById(orderId),
-    getAll: (): Order[] => orderAdapter.getAll().map(addItemsAndCalculate),
-    getById: (orderId: string): Order | undefined => {
-      const order = orderAdapter.getById(orderId)
-      if (order) {
-        return addItemsAndCalculate(order)
-      }
-      return undefined
-    },
-  }
-
-  function addItemsAndCalculate(order: OrderData): Order {
-    const items: Item[] = itemGtw.getByOrderId(order.id)
+) => {
+  const itemGateway = createItemGateway(itemAdapter)
+  const addItemsAndCalculate = async (order: OrderData): Promise<Order> => {
+    const items = (await itemGateway.getByOrderId(order.id)) ?? []
 
     const amountExclTax = round6(
       items.reduce((sum, item) => sum + item.amountExclTax, 0)
@@ -48,5 +30,28 @@ export const createOrderGateway = (
       averageTaxRate,
       principal: amountInclTax,
     }
+  }
+  const getAllData = async (): Promise<OrderData[]> =>
+    await orderAdapter.getAll()
+  const getByIdData = async (orderId: string): Promise<OrderData | undefined> =>
+    await orderAdapter.getById(orderId)
+  const getAll = async (): Promise<Order[]> => {
+    const orderDatas = await orderAdapter.getAll()
+    const orders = await Promise.all(orderDatas.map(addItemsAndCalculate))
+    return orders
+  }
+
+  const getById = async (orderId: string): Promise<Order | undefined> => {
+    const order = await orderAdapter.getById(orderId)
+    if (order) {
+      return addItemsAndCalculate(order)
+    }
+    return undefined
+  }
+  return {
+    getAllData,
+    getByIdData,
+    getAll,
+    getById,
   }
 }
