@@ -1,4 +1,4 @@
-import { inMemory } from '~/mock/inMemory'
+import { inMemory } from 'mock/inMemory'
 
 import { createOrderAdapterJsonServer } from './createOrderAdapterJsonServer'
 

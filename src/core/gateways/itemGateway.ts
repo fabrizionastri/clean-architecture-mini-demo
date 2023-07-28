@@ -1,7 +1,6 @@
 import { Item, ItemData } from 'entities/item'
-import { round6 } from 'utils/round'
-
 import { ItemAdapter } from 'src/adapters/database/adapterInterfaces'
+import { round6 } from 'utils/round'
 
 export const createItemGateway = (adapter: ItemAdapter) => {
   const getByIdData = async (itemId: string): Promise<ItemData | undefined> =>
