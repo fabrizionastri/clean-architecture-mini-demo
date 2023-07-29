@@ -1,7 +1,8 @@
 {
   "type": "module",
   "scripts": {
-    "start": "tsx src/index.ts"
+    "start": "tsx src/index.ts",
+    "json-server": " json-server --port 3057 --watch ../../../../mock/jsonServer.json"
   },
   "dependencies": {
     "@hono/node-server": "^1.1.0",

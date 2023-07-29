@@ -1,16 +1,14 @@
 <template>
   <div style="display: inline-block; margin-right: 30px">
-    <select
-      v-model="sharedState.selectedAccountId"
-      style="font-size: large; padding: 3px 6px; line-height: 2em"
-    >
+    Select account:
+    <select v-model="sharedState.selectedAccountId">
       <option
-        style="font-size: large; line-height: 2em"
         v-for="accountId in accountIds"
-        :key="accountId"
-        :value="accountId"
+        :key="accountId.id"
+        :value="accountId.id"
+        :name="accountId.name"
       >
-        {{ accountId }}
+        {{ accountId.name }}
       </option>
     </select>
   </div>
@@ -20,11 +18,11 @@
 // import { ref } from 'vue'
 import { sharedState } from '../sharedState.js'
 const accountIds = [
-  'account0',
-  'account1',
-  'account2',
-  'account3',
-  'account4',
-  'account5',
+  { name: 'Account 0', id: 'account0' },
+  { name: 'Account 1', id: 'account1' },
+  { name: 'Account 2', id: 'account2' },
+  { name: 'Account 3', id: 'account3' },
+  { name: 'Account 4', id: 'account4' },
+  { name: 'Account 5', id: 'account5' },
 ]
 </script>

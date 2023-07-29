@@ -12,7 +12,7 @@ console.log(
   process.env.STORAGE_TYPE
 )
 if (!process.env.STORAGE_TYPE) {
-  process.env.STORAGE_TYPE = 'inMemory'
+  process.env.STORAGE_TYPE = 'InMemory'
 }
 console.log(
   'Adapter Index: process.env.STORAGE_TYPE after',
@@ -32,7 +32,7 @@ switch (process.env.STORAGE_TYPE) {
     createOrderAdapter = createOrderAdapterJsonServer
     break
   default:
-    throw new Error('Invalid storage type')
+    throw new Error('Core → getAllOrdersForAccountId : Invalid storage type')
 }
 
 export { createItemAdapter, createOrderAdapter }

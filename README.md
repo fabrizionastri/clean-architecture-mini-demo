@@ -25,8 +25,9 @@ The mock data used for tests is provided in the `/mock/` folder:
 - Launch the json-server with: `pnpm json-server`
 - Check out the json-server at: `http://localhost:3057/`
 - Run the tests with: `pnpm test`
-- Launch the express server with: `pnpm express`
-- Check out the express/ejs front at: `http://localhost:3001/`
+- Launch the hono server with: `pnpm hono`
+- Check out the express/ejs front at: `http://localhost:3000/`
 - Launch the vue server with: `pnpm vue`
 - Check out the express/ejs front at: `http://localhost:5173/`
 - If the mock data has changed, reset the json server: `pnpm reset-json-server`
+- To change the data source (in memory or json server), change the `STORAGE_TYPE` variable in `.env`

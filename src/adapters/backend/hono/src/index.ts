@@ -7,6 +7,7 @@ config() // load variables from .env into process.env
 
 const app = new Hono()
 app.use('/order/:accountId', cors())
+app.use('/db/:selectedDb', cors())
 app.use(
   '/order/:accountId',
   cors({
@@ -23,14 +24,23 @@ app.use(
     credentials: true,
   })
 )
+
+// ROUTES
+app.post('/db/:selectedDb', async (c) => {
+  const selectedDb: string = c.req.param('selectedDb')
+  console.log('req path', c.req.path)
+  console.log('Hono: POST Request → selectedDb', selectedDb)
+  process.env.STORAGE_TYPE = selectedDb
+  console.log('Hono: process.env.STORAGE_TYPE', process.env.STORAGE_TYPE)
+  return c.text(selectedDb)
+})
+
 app.get('/order/:accountId', async (c) => {
   const accountId = c.req.param('accountId')
-  console.log('req header', c.req.header().origin)
-  console.log('Hono: process.env.STORAGE_TYPE avant', process.env.STORAGE_TYPE)
-  process.env.STORAGE_TYPE = 'inMemory'
-  console.log('Hono: process.env.STORAGE_TYPE après', process.env.STORAGE_TYPE)
+  console.log('req path', c.req.path)
+  console.log('Hono: process.env.STORAGE_TYPE', process.env.STORAGE_TYPE)
   const orders = await getAllOrdersForAccountId(accountId)
-  console.log('orders', JSON.stringify(orders, null, 2))
+  // console.log('orders', JSON.stringify(orders, null, 2))
   return c.json(orders)
 })
 

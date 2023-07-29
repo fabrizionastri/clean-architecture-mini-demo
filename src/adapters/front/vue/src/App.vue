@@ -14,4 +14,9 @@ import OrderList from './components/OrderList.vue'
 body {
   font-family: 'Open Sans', sans-serif;
 }
+select {
+  font-size: large;
+  padding: 3px 6px;
+  line-height: 2em;
+}
 </style>
