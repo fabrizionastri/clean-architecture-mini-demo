@@ -7,7 +7,7 @@ export default defineConfig({
   define: {
     'import.meta.vitest': 'undefined',
   },
-  root: './src/adapters/front/vue', // Add this line
+  root: './src/adapters/frontend/vue', // Add this line
   resolve: {
     alias: {
       '@': '/src', // Also change this line to '/src'
