@@ -31,3 +31,7 @@ The mock data used for tests is provided in the `/mock/` folder:
 - Check out the express/ejs front at: `http://localhost:5173/`
 - If the mock data has changed, reset the json server: `pnpm reset-json-server`
 - To change the data source (in memory or json server), change the `STORAGE_TYPE` variable in `.env`
+
+## TODOS
+
+- compare createItemAdapterJsonServer2 with createItemAdapterJsonServer1 (async/await vs .then)
