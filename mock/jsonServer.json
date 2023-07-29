@@ -4,25 +4,25 @@
       "id": "order0",
       "clientId": "account0",
       "supplierId": "account1",
-      "name": "T blues & rouges JSON-SERVER"
+      "name": "T blues & rouges"
     },
     {
       "id": "order1",
       "clientId": "account2",
       "supplierId": "account0",
-      "name": "21 T-shirts (bleus + rouges)  JSON-SERVER"
+      "name": "21 T-shirts (bleus + rouges)"
     },
     {
       "id": "order2",
       "clientId": "account3",
       "supplierId": "accountD",
-      "name": "Chaussettes  JSON-SERVER"
+      "name": "Chaussettes"
     },
     {
       "id": "order3",
       "clientId": "account1",
       "supplierId": "account3",
-      "name": "Chaussures  JSON-SERVER"
+      "name": "Chaussures"
     }
   ],
   "item": [

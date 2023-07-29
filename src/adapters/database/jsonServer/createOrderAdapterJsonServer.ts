@@ -11,7 +11,9 @@ export const createOrderAdapterJsonServer = (
       (await axios.get<OrderData[]>(`/order?clientId=${accountId}`)) ?? []
     const supplierOrders =
       (await axios.get<OrderData[]>(`/order?supplierId=${accountId}`)) ?? []
-    return clientOrders.concat(supplierOrders)
+    console.log('clientOrders', clientOrders)
+    console.log('supplierOrders', supplierOrders)
+    return [...clientOrders, ...supplierOrders]
   }
   const getById = async (orderId: string): Promise<OrderData | undefined> => {
     const result = (await getAll()) ?? []

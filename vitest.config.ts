@@ -17,7 +17,7 @@ export default mergeConfig(
       transformMode: {
         web: [/\.[jt]sx$/],
       },
-      setupFiles: ['mock/mswSetup.ts'],
+      // setupFiles: ['mock/mswSetup.ts'],
     },
   })
 )

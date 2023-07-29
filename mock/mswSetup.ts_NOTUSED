@@ -1,17 +1,17 @@
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 
-import { orderDatas, orders } from './inMemory'
+import { orderDatas } from './inMemory'
 
 export const handlers = [
   rest.get('http://localhost:3057/order', (_req, res, ctx) => {
     //_req pour dire qu'on l'utilise pas
     return res(ctx.status(200), ctx.json({ prout: 'prout' }))
   }),
-  rest.get('http://localhost:3000/account0', (_req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ prout: 'prout' }))
+  rest.get('http://localhost:3000/order/account0', (_req, res, ctx) => {
+    return res(ctx.status(200), ctx.json([orderDatas[0], orderDatas[1]]))
   }),
-  rest.get('http://localhost:3000/account99', (_req, res, ctx) => {
+  rest.get('http://localhost:3000/order/account99', (_req, res, ctx) => {
     return res(ctx.status(200), ctx.json([]))
   }),
 ]
