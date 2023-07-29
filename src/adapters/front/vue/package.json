@@ -1,0 +1,39 @@
+{
+  "name": "vue-clean-mini-repo",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "test:cov": "vitest --environment jsdom --coverage  --reporter verbose",
+    "test": "vitest --environment jsdom --reporter verbose"
+  },
+  "dependencies": {
+    "@pinia/testing": "^0.1.2",
+    "axios": "^1.4.0",
+    "pinia": "^2.1.4",
+    "vue": "^3.3.4",
+    "vue-router": "4"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@pinia/testing": "^0.1.2",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/user-event": "^14.4.3",
+    "@testing-library/vue": "^7.0.0",
+    "@types/jsdom": "^21.1.1",
+    "@types/node": "^20.3.3",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vitest/coverage-c8": "^0.31.4",
+    "@vue/test-utils": "2.4.0",
+    "@vue/tsconfig": "^0.4.0",
+    "jsdom": "^22.0.0",
+    "typescript": "^5.1.6",
+    "vite": "^4.3.5",
+    "vitest": "^0.31.0"
+  },
+  "volta": {
+    "node": "20.2.0"
+  }
+}

@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import NavBar from './components/NavBar.vue'
+import OrderList from './components/OrderList.vue'
+</script>
+
 <template>
   <main>
     <NavBar />
@@ -5,12 +10,8 @@
   </main>
 </template>
 
-<script lang="ts" setup>
-import NavBar from './components/NavBar.vue'
-import OrderList from './components/OrderList.vue'
-</script>
 <style>
 body {
-  font-family: Open-Sans, Helvetica, sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 </style>

@@ -6,9 +6,9 @@ import { cors } from 'hono/cors'
 config() // load variables from .env into process.env
 
 const app = new Hono()
-app.use('/:accountId', cors())
+app.use('/order/:accountId', cors())
 app.use(
-  '/:accountId',
+  '/order/:accountId',
   cors({
     origin: '*',
     allowHeaders: [
@@ -18,25 +18,22 @@ app.use(
       'Upgrade-Insecure-Requests',
     ],
     allowMethods: ['POST', 'GET', 'OPTIONS'],
-    exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
+    exposeHeaders: ['Content-Length'],
     maxAge: 600,
     credentials: true,
   })
 )
-
-app.get('/', (c) => c.text('Hello Hono!'))
-
-app.get('/fab', (c) => c.text('Hello Fabrizio!'))
-
-app.get('/:accountId', async (c) => {
+app.get('/order/:accountId', async (c) => {
   const accountId = c.req.param('accountId')
   console.log('req header', c.req.header().origin)
-  console.log('process.env.STORAGE_TYPE avant', process.env.STORAGE_TYPE)
+  console.log('Hono: process.env.STORAGE_TYPE avant', process.env.STORAGE_TYPE)
   process.env.STORAGE_TYPE = 'inMemory'
-  console.log('process.env.STORAGE_TYPE après', process.env.STORAGE_TYPE)
+  console.log('Hono: process.env.STORAGE_TYPE après', process.env.STORAGE_TYPE)
   const orders = await getAllOrdersForAccountId(accountId)
-  console.log('orders', orders)
+  console.log('orders', JSON.stringify(orders, null, 2))
   return c.json(orders)
 })
 
+app.get('/fab', (c) => c.text('Hello Fabrizio!'))
+app.get('/', (c) => c.text('Hello Hono!'))
 serve(app)
