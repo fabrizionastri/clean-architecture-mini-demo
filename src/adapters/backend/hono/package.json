@@ -5,8 +5,8 @@
     "json-server": " json-server --port 3057 --watch ../../../../mock/jsonServer.json"
   },
   "dependencies": {
-    "@hono/node-server": "^1.1.0",
-    "hono": "^3.3.4"
+    "@hono/node-server": "^1.2.0",
+    "hono": "^3.7.2"
   },
   "devDependencies": {
     "tsx": "^3.12.2"

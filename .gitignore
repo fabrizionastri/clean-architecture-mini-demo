@@ -1,11 +1,6 @@
-.project_structure_filter
-.project_structure_ignore
+_archives
+_docs
 .vscode/*
 db.json
 node_modules
-project_structure_filter.js
-project_structure_filter.ts
-project_structure_filtered.txt
-project_structure.txt
 pnpm-lock.yaml
-_archives

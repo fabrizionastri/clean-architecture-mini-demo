@@ -12,7 +12,7 @@
     "json-server": " json-server --port 3057 --watch ./mock/jsonServer.json",
     "reset-json-server": "ts-node ./src/utils/resetJsonServer.ts",
     "doc": "node project_structure_filter.js",
-    "vue": "vite",
+    "vue": "vite --port 5137",
     "dev": "vite",
     "nodemon": "nodemon",
     "hono": "tsx src/adapters/backend/hono/src/index.ts"
