@@ -19,7 +19,7 @@ export const createItemGateway = (adapter: ItemAdapter) => {
     getByIdData,
     getByOrderIdData,
     getById,
-    getByOrderId,
+    getByOrderId
   }
 }
 
@@ -31,6 +31,6 @@ function calculateItem(item: ItemData): Item {
     taxAmount: round6(item.quantity * item.unitPriceExclTax * item.taxRate),
     amountInclTax: round6(
       item.quantity * item.unitPriceExclTax * (1 + item.taxRate)
-    ),
+    )
   }
 }

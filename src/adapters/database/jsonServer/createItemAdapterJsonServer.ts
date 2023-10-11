@@ -24,7 +24,7 @@ export const createItemAdapterJsonServer1 = (): ItemAdapter => {
   return {
     getById,
     getByOrderId,
-    getByOrderIds,
+    getByOrderIds
   }
 }
 
@@ -45,7 +45,7 @@ export const createItemAdapterJsonServer2 = (): ItemAdapter => {
   return {
     getById,
     getByOrderId,
-    getByOrderIds,
+    getByOrderIds
   }
 }
 

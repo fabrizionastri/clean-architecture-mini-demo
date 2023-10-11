@@ -14,6 +14,6 @@ export const createItemAdapterInMemory = (): ItemAdapter => {
   return {
     getById,
     getByOrderId,
-    getByOrderIds,
+    getByOrderIds
   }
 }

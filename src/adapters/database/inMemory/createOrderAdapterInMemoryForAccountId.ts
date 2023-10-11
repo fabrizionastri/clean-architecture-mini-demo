@@ -18,6 +18,6 @@ export const createOrderAdapterInMemoryForAccountId = (
     Promise.resolve((await getAll()).find((order) => order.id === orderId))
   return {
     getAll,
-    getById,
+    getById
   }
 }

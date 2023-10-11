@@ -3,7 +3,7 @@ import { orderDatas, orders } from 'mock/inMemory'
 
 import {
   ItemAdapter,
-  OrderAdapter,
+  OrderAdapter
 } from 'src/adapters/database/adapterInterfaces'
 import { createItemAdapter } from 'src/adapters/database/index'
 import { createOrderAdapter } from 'src/adapters/database/index'

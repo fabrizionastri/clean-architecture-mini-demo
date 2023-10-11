@@ -23,6 +23,6 @@ const accountIds = [
   { name: 'Account 2', id: 'account2' },
   { name: 'Account 3', id: 'account3' },
   { name: 'Account 4', id: 'account4' },
-  { name: 'Account 5', id: 'account5' },
+  { name: 'Account 5', id: 'account5' }
 ]
 </script>

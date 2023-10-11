@@ -20,8 +20,8 @@
     "sourceType": "module"
   },
   "plugins": [
-    "@typescript-eslint", 
-    "simple-import-sort", 
+    "@typescript-eslint",
+    "simple-import-sort",
     "prettier"
   ],
   "rules": {

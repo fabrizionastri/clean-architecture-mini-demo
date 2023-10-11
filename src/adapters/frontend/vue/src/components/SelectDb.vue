@@ -14,7 +14,7 @@ type Option = { text: string; value: string }
 
 const options: Ref<Option[]> = ref([
   { text: 'In Memory', value: 'inMemory' },
-  { text: 'JSON Server', value: 'jsonServer' },
+  { text: 'JSON Server', value: 'jsonServer' }
 ])
 const selectedDb: Ref<string> = ref<string>(options.value[0].value)
 

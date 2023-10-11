@@ -2,7 +2,7 @@
 import axios, { AxiosResponse, Method } from 'axios'
 export const myAxios = axios.create({
   baseURL: 'http://localhost:3057/',
-  timeout: 1000,
+  timeout: 1000
 })
 
 export const handleRequest =
@@ -12,7 +12,7 @@ export const handleRequest =
       const response: AxiosResponse = await myAxios.request({
         url,
         method: httpMethod,
-        data,
+        data
       })
       return response.data
     } catch (error) {
@@ -25,5 +25,5 @@ export default {
   get: handleRequest('get'),
   post: handleRequest('post'),
   delete: handleRequest('delete'),
-  put: handleRequest('put'),
+  put: handleRequest('put')
 }

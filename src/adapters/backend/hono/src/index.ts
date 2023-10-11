@@ -66,6 +66,6 @@ app.get('/:resource', async (c) => {
 console.log('Hono server listening on PORT ', API_PORT)
 serve({
   fetch: app.fetch,
-  port: API_PORT,
+  port: API_PORT
 })
 // serve(app)

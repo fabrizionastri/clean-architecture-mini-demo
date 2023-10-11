@@ -30,7 +30,7 @@ export const createOrderGateway = (
       amountInclTax,
       taxAmount,
       averageTaxRate,
-      principal: amountInclTax,
+      principal: amountInclTax
     }
   }
   const getAllData = async (): Promise<OrderData[]> =>
@@ -54,6 +54,6 @@ export const createOrderGateway = (
     getAllData,
     getByIdData,
     getAll,
-    getById,
+    getById
   }
 }

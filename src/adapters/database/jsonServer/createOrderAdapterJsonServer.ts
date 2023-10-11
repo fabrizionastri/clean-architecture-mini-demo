@@ -21,6 +21,6 @@ export const createOrderAdapterJsonServer = (
   }
   return {
     getAll,
-    getById,
+    getById
   }
 }
